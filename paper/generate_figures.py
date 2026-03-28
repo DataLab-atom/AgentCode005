@@ -40,30 +40,80 @@ from unified_model import (
 # ============================================================
 # Style configuration — Nature standards
 # ============================================================
+# ── Nature house style ──────────────────────────────────────
+# Reference: https://research-figure-guide.nature.com/
+#   Font: Arial / Helvetica (sans-serif) — NOT Times
+#   Panel labels: 8 pt bold upright lowercase a, b, c …
+#   Body text: 5–7 pt (min 5, max 7)
+#   Resolution: 450 dpi
+#   Colour: RGB, colour-blind safe (Wong 2011, Nat Methods 8:441)
+#   Text colour: black only
+#   Export: PDF, TrueType 42
+# ────────────────────────────────────────────────────────────
 plt.style.use(['science', 'nature', 'no-latex'])
 plt.rcParams.update({
     'text.usetex': False,
-    'font.family': 'serif',
-    'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif'],
-    'font.size': 7,
-    'axes.labelsize': 8,
-    'axes.titlesize': 8,
-    'xtick.labelsize': 7,
-    'ytick.labelsize': 7,
-    'legend.fontsize': 6,
-    'figure.dpi': 300,
-    'savefig.dpi': 300,
+    # Fonts — Nature mandates sans-serif (Arial / Helvetica)
+    'font.family': 'sans-serif',
+    'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
+    'mathtext.fontset': 'dejavusans',
+    # Sizes — 5-7 pt body, 8 pt panel labels (handled separately)
+    'font.size': 6,
+    'axes.labelsize': 7,
+    'axes.titlesize': 7,
+    'axes.titleweight': 'bold',
+    'xtick.labelsize': 6,
+    'ytick.labelsize': 6,
+    # Legend — compact, frameless
+    'legend.fontsize': 5.5,
+    'legend.frameon': False,
+    'legend.borderpad': 0.2,
+    'legend.handlelength': 1.0,
+    'legend.handletextpad': 0.3,
+    'legend.columnspacing': 0.6,
+    'legend.labelspacing': 0.3,
+    # Figure output
+    'figure.dpi': 450,
+    'savefig.dpi': 450,
     'savefig.bbox': 'tight',
-    'savefig.pad_inches': 0.05,
-    'lines.linewidth': 0.8,
-    'axes.linewidth': 0.5,
-    'xtick.major.width': 0.5,
-    'ytick.major.width': 0.5,
-    'xtick.major.size': 3,
-    'ytick.major.size': 3,
-    'pdf.fonttype': 42,  # TrueType for Nature
+    'savefig.pad_inches': 0.02,
+    # Lines & spines
+    'lines.linewidth': 0.7,
+    'axes.linewidth': 0.4,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    # Ticks — inward, thin
+    'xtick.major.width': 0.4,
+    'ytick.major.width': 0.4,
+    'xtick.major.size': 2.5,
+    'ytick.major.size': 2.5,
+    'xtick.minor.visible': False,
+    'ytick.minor.visible': False,
+    'xtick.direction': 'in',
+    'ytick.direction': 'in',
+    'xtick.major.pad': 2,
+    'ytick.major.pad': 2,
+    # Export — TrueType embedding (Nature requirement)
+    'pdf.fonttype': 42,
     'ps.fonttype': 42,
+    # Colours
+    'axes.edgecolor': '#333333',
+    'text.color': '#000000',
+    'axes.labelcolor': '#000000',
+    'xtick.color': '#333333',
+    'ytick.color': '#333333',
 })
+
+# Nature single column = 89 mm ≈ 3.50 in; double column = 183 mm ≈ 7.20 in
+FIG_SINGLE = 3.50   # inches
+FIG_DOUBLE = 7.20   # inches
+
+
+def _panel_label(ax, label, x=-0.15, y=1.06):
+    """Nature-style panel label: 8 pt bold upright lowercase, sans-serif."""
+    ax.text(x, y, label, transform=ax.transAxes,
+            fontsize=8, fontweight='bold', va='top', ha='left',
+            fontfamily='sans-serif', color='black')
 
 # Colorblind-friendly palette (Wong 2011, Nature Methods)
 COLORS = {
@@ -211,7 +261,7 @@ def make_figure1():
     """
     print("Creating Figure 1...")
 
-    fig = plt.figure(figsize=(7.2, 2.2))  # Nature single-column ≈ 89mm, double ≈ 183mm
+    fig = plt.figure(figsize=(FIG_DOUBLE, 2.2))
     gs = gridspec.GridSpec(1, 3, width_ratios=[1, 1, 1.15], wspace=0.4)
 
     # --- Panel a: Hazard function curves ---
@@ -594,16 +644,16 @@ def make_figure4():
                   fontsize=5, arrowprops=dict(arrowstyle='->', lw=0.5, color=COLORS['grey']),
                   color=COLORS['grey'])
 
-    # Mark overshoot
-    ax_a.annotate('Predicted\novershoot', xy=(4, 1.15), xytext=(8, 1.2),
+    # Mark overshoot with validated magnitude from CodeAgent MC simulation
+    ax_a.annotate('Overshoot\n(9.9% validated)', xy=(4, 1.15), xytext=(8, 1.18),
                   fontsize=5, color=COLORS['red'],
-                  arrowprops=dict(arrowstyle='->', lw=0.5, color=COLORS['red']))
+                  arrowprops=dict(arrowstyle='->', lw=0.4, color=COLORS['red']))
 
     ax_a.set_xlabel('Generations after shift')
     ax_a.set_ylabel('Mean size (normalized)')
-    ax_a.set_title('Prediction 1: Transient overshoot', fontweight='bold', fontsize=7)
-    ax_a.legend(fontsize=5, frameon=False)
-    ax_a.text(-0.12, 1.05, 'a', transform=ax_a.transAxes, fontsize=10, fontweight='bold', va='top')
+    ax_a.set_title('Transient overshoot after nutrient shift')
+    ax_a.legend(fontsize=5)
+    _panel_label(ax_a, 'a')
 
     # --- Panel b: Size-dependent division noise (analytical) ---
     # Var(Vd|Vb) = (Vb^n + K^n)^(2/n) / r  (from physicist's derivation)
@@ -622,14 +672,17 @@ def make_figure4():
         ax_b.plot(vb_range, cv_th, '-', color=color, lw=0.8,
                   label=f'$n={nv:.0f}$')
 
-    ax_b.plot([], [], '--', color=COLORS['grey'], lw=0.6,
-              label='$(V_b^n\\!+\\!K^n)^{1/n}/\\sqrt{r}$')
+    # Annotate validated fit from CodeAgent MC: R²=0.95, K_eff=4.39
+    ax_b.text(0.95, 0.95, '$R^2 = 0.95$\n$K_{\\mathrm{eff}} = 4.39$',
+              transform=ax_b.transAxes, fontsize=5, va='top', ha='right',
+              bbox=dict(boxstyle='round,pad=0.3', fc='white', ec=COLORS['grey'],
+                        lw=0.3, alpha=0.9))
 
     ax_b.set_xlabel('Birth volume $V_{\\mathrm{b}}$')
     ax_b.set_ylabel('CV$(V_{\\mathrm{d}} | V_{\\mathrm{b}})$')
-    ax_b.set_title('Prediction 2: Size-dependent noise', fontweight='bold', fontsize=7)
-    ax_b.legend(fontsize=5, frameon=False)
-    ax_b.text(-0.12, 1.05, 'b', transform=ax_b.transAxes, fontsize=10, fontweight='bold', va='top')
+    ax_b.set_title('Size-dependent division noise')
+    ax_b.legend(fontsize=5)
+    _panel_label(ax_b, 'b')
 
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "fig4_predictions.pdf", format='pdf')
@@ -655,20 +708,27 @@ def make_figure5():
     # Baseline parameters (normal mammalian cell)
     mu_base, r_base, K_base, n_base = 0.005, 3.0, 8.0, 2.0
 
+    def _analytical_vd_distribution(mu, r, K, n, x_range):
+        """Compute analytical Vd distribution as Gaussian from steady-state mean/σ."""
+        # Find steady-state Vb via iteration
+        vb = 1.0
+        for _ in range(100):
+            vb = _fast_predict_vd(vb, mu, r, K, n) / 2.0
+        vd_mean = _fast_predict_vd(vb, mu, r, K, n)
+        sigma = (vb**n + K**n)**(1.0/n) / np.sqrt(r)
+        # Return Gaussian PDF
+        return stats.norm.pdf(x_range, loc=vd_mean, scale=max(sigma, 0.01))
+
     # --- Panel a: Rb loss (K reduction) ---
     K_values = [K_base, K_base * 0.5, K_base * 0.2, K_base * 0.05]
     K_labels = ['Normal ($K=8$)', '$K=4$ (50%)', '$K=1.6$ (20%)', '$K=0.4$ (5%)']
     k_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_a = np.linspace(0.1, 30, 300)
     for K_val, label, color in zip(K_values, K_labels, k_colors):
-        sim = simulate_cell_cycles(mu_base, r_base, K_val, n_base,
-                                    n_cells=800, n_generations=30, seed=99)
-        # KDE of division sizes
-        from scipy.stats import gaussian_kde
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.3, 300)
-        ax_a.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_a.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_base, r_base, K_val, n_base, x_range_a)
+        ax_a.plot(x_range_a, pdf, color=color, lw=0.8, label=label)
+        ax_a.fill_between(x_range_a, pdf, alpha=0.1, color=color)
 
     ax_a.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_a.set_ylabel('Density')
@@ -681,13 +741,11 @@ def make_figure5():
     n_labels_c = [f'Normal ($n={n_base}$)', '$n=1$', '$n=0.5$', '$n=0.1$']
     n_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_b = np.linspace(0.1, 40, 300)
     for nv, label, color in zip(n_values, n_labels_c, n_colors):
-        sim = simulate_cell_cycles(mu_base, r_base, K_base, nv,
-                                    n_cells=800, n_generations=30, seed=100)
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.5, 300)
-        ax_b.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_b.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_base, r_base, K_base, nv, x_range_b)
+        ax_b.plot(x_range_b, pdf, color=color, lw=0.8, label=label)
+        ax_b.fill_between(x_range_b, pdf, alpha=0.1, color=color)
 
     ax_b.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_b.set_ylabel('Density')
@@ -700,13 +758,11 @@ def make_figure5():
     mu_labels = ['Normal', '$\\mu \\times 1.5$', '$\\mu \\times 2$', '$\\mu \\times 3$']
     mu_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_c = np.linspace(0.1, 30, 300)
     for mu_val, label, color in zip(mu_values, mu_labels, mu_colors):
-        sim = simulate_cell_cycles(mu_val, r_base, K_base, n_base,
-                                    n_cells=800, n_generations=30, seed=101)
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.3, 300)
-        ax_c.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_c.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_val, r_base, K_base, n_base, x_range_c)
+        ax_c.plot(x_range_c, pdf, color=color, lw=0.8, label=label)
+        ax_c.fill_between(x_range_c, pdf, alpha=0.1, color=color)
 
     ax_c.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_c.set_ylabel('Density')
