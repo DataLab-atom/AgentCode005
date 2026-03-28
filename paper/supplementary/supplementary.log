@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2026.3.24)  28 MAR 2026 21:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2026.3.24)  28 MAR 2026 21:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./paper/supplementary/supplementary.tex
-(paper/supplementary/supplementary.tex
+**./supplementary.tex
+(supplementary.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (D:\Ctex\run_time\CTEX\MiKTeX\tex/latex/base\article.cls
@@ -460,8 +460,7 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count312
 \l__pdf_internal_box=\box65
 )
-(D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplementary\supplementar
-y.aux)
+(supplementary.aux)
 \openout1 = `supplementary.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
@@ -482,7 +481,8 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
 LaTeX Font Info:    ... okay on input line 38.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
 LaTeX Font Info:    ... okay on input line 38.
- (D:\Ctex\run_time\CTEX\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+
+(D:\Ctex\run_time\CTEX\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count313
 \scratchdimen=\dimen192
@@ -538,11 +538,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 38.
-
-(D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplementary\supplementar
-y.out)
-(D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplementary\supplementar
-y.out)
+(supplementary.out) (supplementary.out)
 \@outlinefile=\write3
 \openout3 = `supplementary.out'.
 
@@ -593,9 +589,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 41.
-
-(D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplementary\supplementar
-y.toc
+ (supplementary.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
@@ -606,11 +600,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 \tf@toc=\write4
 \openout4 = `supplementary.toc'.
 
- [1
+
+[1
 
 {D:/Ctex/run_time/CTEX/UserData/fonts/map/pdftex/pdftex.map{Unicode.sfd}{UGBK.s
-fd}}{D:/Ctex/run_time/CTEX/MiKTeX/fonts/enc/dvips/base/8r.enc}]
-[2]
+fd}}{D:/Ctex/run_time/CTEX/MiKTeX/fonts/enc/dvips/base/8r.enc}] [2]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 97.
@@ -716,11 +710,77 @@ File: ../figures/ed_fig3_parameter_recovery.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../figures/ed_fig3_parameter_recovery.pdf  used on inp
 ut line 391.
 (pdftex.def)             Requested size: 377.62642pt x 110.71419pt.
- [9 <D:/Git/Bio/myagents/work_space05/AgentCode005/paper/figures/ed_fig4_steady
-_state_distribution.pdf>] [10 <D:/Git/Bio/myagents/work_space05/AgentCode005/pa
-per/figures/ed_fig3_parameter_recovery.pdf>]
-(D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplementary\supplementar
-y.aux)
+ [9 <../figures/ed_fig4_steady_state_distribution.pdf>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 439.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 439.
+
+Underfull \hbox (badness 10000) in paragraph at lines 489--490
+[]|\T1/ptm/m/n/10 Zatulovskiy 2020;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 491--491
+[]|\T1/ptm/m/n/10 CDK/Cyclin dys-
+ []
+
+
+Underfull \hbox (badness 2005) in paragraph at lines 492--494
+[]|\T1/ptm/m/n/10 Histological grade cor-re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 498--499
+[]|\T1/ptm/m/n/10 Progressive en-large-ment;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 499--500
+[]|\T1/ptm/m/n/10 Overgrowth-induced
+ []
+
+
+Underfull \hbox (badness 7722) in paragraph at lines 502--503
+[]|\T1/ptm/m/n/10 Breast can-cer, glioblas-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 504--504
+[]|\T1/ptm/m/n/10 Whi5/Rb dosage
+ []
+
+[10 <../figures/ed_fig3_parameter_recovery.pdf>]
+Underfull \hbox (badness 4429) in paragraph at lines 523--523
+[]|\T1/ptm/m/n/10 Nonlinear mem-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 523--523
+[]|\T1/ptm/m/n/10 Zhang et al.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 524--525
+[]|\T1/ptm/m/n/10 Inference frame-work; no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 526--526
+[]|\T1/ptm/m/n/10 Genthon &
+ []
+
+
+Underfull \hbox (badness 2970) in paragraph at lines 530--531
+[]|\T1/ptm/m/n/10 Three con-trols as dif-fer-ent
+ []
+
+
+Underfull \hbox (badness 2269) in paragraph at lines 533--534
+[]|\T1/ptm/m/n/10 Explains tran-si-tions but no
+ []
+
+[11] (supplementary.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -729,20 +789,17 @@ L3 programming layer <2024-01-22>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `supplementary.out' has not changed.
 (rerunfilecheck)             Checksum: 731FD3CFDE9ECEE7F1647B4F6F766B22;4036.
  ) 
 Here is how much of TeX's memory you used:
- 16010 strings out of 474504
- 309183 string characters out of 5750526
- 1933978 words of memory out of 5000000
- 37982 multiletter control sequences out of 15000+600000
- 619874 words of font info for 139 fonts, out of 8000000 for 9000
+ 16046 strings out of 474504
+ 309113 string characters out of 5750526
+ 1940978 words of memory out of 5000000
+ 38003 multiletter control sequences out of 15000+600000
+ 638919 words of font info for 170 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,572b,906s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,79p,552b,906s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <D:/Ctex/run_time/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/C
 tex/run_time/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Ctex/run
 _time/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Ctex/run_time/CT
@@ -752,10 +809,9 @@ ype1/public/urw-base35/usyr.pfb><D:/Ctex/run_time/CTEX/MiKTeX/fonts/type1/publi
 c/urw-base35/utmb8a.pfb><D:/Ctex/run_time/CTEX/MiKTeX/fonts/type1/public/urw-ba
 se35/utmr8a.pfb><D:/Ctex/run_time/CTEX/MiKTeX/fonts/type1/public/urw-base35/utm
 ri8a.pfb>
-Output written on D:\Git\Bio\myagents\work_space05\AgentCode005\paper\supplemen
-tary\supplementary.pdf (10 pages, 179434 bytes).
+Output written on supplementary.pdf (11 pages, 184824 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
- 54 named destinations out of 1000 (max. 500000)
+ 255 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 
