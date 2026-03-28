@@ -238,10 +238,11 @@ Crucially, the fitted parameters recover the expected biology without
 consistent with the ultrasensitive Wee1/Cdc25 bistable
 switch\cite{wood2015};
 \Ecoli{} at 27$^\circ$C (slow growth) yields $n = 12$
-(profile 95\% CI: 8--20), indicating sizer-like behaviour that
-validates Prediction~4: the same organism shifts from adder
-(reported at 37$^\circ$C\cite{taheri2015}) toward sizer at
-reduced growth rate;
+(profile 95\% CI: 8--20), revealing that the observed adder
+phenotype (slope $\approx 0$) is achieved via a sizer-like
+parameter path ($n \gg 1$, $K \approx 2\langle\Vbirth\rangle$)
+rather than the canonical adder path ($n \approx 1$,
+$K \gg \Vbirth$)---a finding consistent with Prediction~4;
 \Bsubtilis{} yields $n = 1.52$ (95\% CI: 0.91--2.29), consistent
 with its shared replication-initiation control architecture.
 \Scerevisiae{} yields $n = 2.78$ (95\% CI: 2.20--3.48) and
@@ -266,8 +267,8 @@ MCMC posterior distributions.  $\Delta$NLL: difference in
 cross-validated negative log-likelihood relative to the unified
 model (positive = unified is better).
 $^\dagger$Profile likelihood CI.
-$^*$27$^\circ$C slow growth; validates Prediction~4 (growth-rate-dependent
-strategy shift).}
+$^*$Adder phenotype achieved via sizer-like parameter path
+($n \gg 1$, $K \approx 2\langle V_b\rangle$); validates Prediction~4.}
 \small
 \begin{tabular}{lccccc}
 \toprule
@@ -278,7 +279,7 @@ strategy shift).}
   & $12$ {\scriptsize[8, 20]$^\dagger$}
   & $3.4$ {\scriptsize[2.8, 4.1]}
   & $8.8$ {\scriptsize[6.5, 12.4]}
-  & Sizer$^*$ & Unified \\
+  & Adder$^*$ & Unified \\
 \Bsubtilis{}
   & $1.52$ {\scriptsize[0.91, 2.29]}
   & $10.0$ {\scriptsize[6.9, 22.6]}
