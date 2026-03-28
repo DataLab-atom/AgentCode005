@@ -1,0 +1,45 @@
+{
+  "cancer": [
+    {
+      "name": "Rb_loss",
+      "size_ratio": 0.19,
+      "cv_ratio": 0.82,
+      "match": true
+    },
+    {
+      "name": "reduced_cooperativity",
+      "size_ratio": 0.67,
+      "cv_ratio": 1.27,
+      "match": true
+    },
+    {
+      "name": "growth_acceleration",
+      "size_ratio": 0.98,
+      "cv_ratio": 0.79,
+      "match": true
+    },
+    {
+      "name": "combined_perturbation",
+      "size_ratio": 0.16,
+      "cv_ratio": 1.09,
+      "match": true
+    }
+  ],
+  "nutrient_shift": {
+    "overshoot": true,
+    "magnitude": 0.099,
+    "steady_before": 7.36,
+    "steady_after": 7.19
+  },
+  "composite_cycle": {
+    "whole_cycle_adder": false,
+    "slope_whole": 0.6835848956169303,
+    "G1_sizer": false,
+    "SG2M_timer": false
+  },
+  "size_dependent_noise": {
+    "r2_scaling": 0.7704070769720043,
+    "fit_K": -2.1269919921688625,
+    "true_K": 10.0
+  }
+}
