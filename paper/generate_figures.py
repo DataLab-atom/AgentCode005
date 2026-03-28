@@ -565,11 +565,19 @@ def make_figure4():
         ax_b.plot(bin_centers, bin_cvs, '-o', color=color, markersize=2.5, lw=0.8,
                   label=f'$n={nv:.0f}$')
 
-    # Theoretical prediction: CV ∝ (Vb + K)^{-1/2}
+    # Theoretical prediction from physicist's derivation:
+    # Var(Vd|Vb) ∝ (Vb+K)²/r → σ(Vd|Vb) ∝ (Vb+K)/√r
+    # CV(Vd|Vb) = σ/E[Vd] ∝ (Vb+K)/(√r · E[Vd])
+    # For adder regime E[Vd] ≈ Vb + K·ln2/r, so CV ∝ 1/√r · (Vb+K)/(Vb+K·ln2/r)
     vb_theory = np.linspace(min(bin_centers) * 0.8, max(bin_centers) * 1.2, 100)
-    cv_theory = 0.15 * (vb_theory + 10) ** (-0.5) / (min(vb_theory) + 10) ** (-0.5)
+    # Use the general form: σ ∝ (Vb^n + K^n)^(1/n) / √r
+    K_th, r_th = 10.0, 5.0
+    sigma_theory = (vb_theory + K_th) / np.sqrt(r_th)
+    mean_theory = vb_theory + K_th * np.log(2) / r_th
+    cv_theory = sigma_theory / mean_theory
+    cv_theory = cv_theory / cv_theory[0] * bin_cvs[0]  # normalize to data
     ax_b.plot(vb_theory, cv_theory, '--', color=COLORS['grey'], lw=0.6,
-              label='$\\propto (V_b + K)^{-1/2}$')
+              label='Theory: $\\sigma \\propto (V_b\\!+\\!K)/\\sqrt{r}$')
 
     ax_b.set_xlabel('Birth volume $V_{\\mathrm{b}}$')
     ax_b.set_ylabel('CV$(V_{\\mathrm{d}} | V_{\\mathrm{b}})$')
@@ -812,6 +820,50 @@ def make_extended_data(data, fit_results):
     fig3.savefig(FIGURES_DIR / "ed_fig3_parameter_recovery.png", format='png', dpi=300)
     plt.close(fig3)
     print("  ED Fig 3 (parameter recovery) saved.")
+
+    # --- ED Fig 4: Analytical steady-state distribution vs simulation ---
+    # From physicist's derivation: for n=1, ρ*(Vb) ∝ Vb^(r-2) · (Vb+K)^(-(r+1))
+    fig4, axes4 = plt.subplots(1, 3, figsize=(7.2, 2.2))
+
+    test_cases = [
+        {'r': 5.0, 'K': 20.0, 'n': 1.0, 'mu': 0.02, 'label': 'Adder ($n=1$, $K=20$)'},
+        {'r': 8.0, 'K': 5.0, 'n': 3.0, 'mu': 0.01, 'label': 'Mixed ($n=3$, $K=5$)'},
+        {'r': 30.0, 'K': 2.5, 'n': 15.0, 'mu': 0.008, 'label': 'Sizer ($n=15$, $K=2.5$)'},
+    ]
+
+    for idx, (tc, ax) in enumerate(zip(test_cases, axes4)):
+        sim = simulate_cell_cycles(tc['mu'], tc['r'], tc['K'], tc['n'],
+                                    n_cells=5000, n_generations=60, seed=200+idx)
+        # Simulation histogram
+        from scipy.stats import gaussian_kde
+        kde_sim = gaussian_kde(sim.v_birth, bw_method=0.15)
+        vb_range = np.linspace(sim.v_birth.min() * 0.5, sim.v_birth.max() * 1.5, 300)
+        ax.plot(vb_range, kde_sim(vb_range), color=COLORS['blue'], lw=1.0, label='Simulation')
+
+        # Analytical form for n=1: ρ*(Vb) ∝ Vb^(r-2) · (Vb+K)^(-(r+1))
+        if tc['n'] == 1.0:
+            rho_analytical = vb_range**(tc['r']-2) * (vb_range + tc['K'])**(-(tc['r']+1))
+            # Normalize
+            rho_analytical = rho_analytical / np.trapz(rho_analytical, vb_range)
+            ax.plot(vb_range, rho_analytical, '--', color=COLORS['red'], lw=0.8,
+                    label='Analytical $\\rho^*$')
+
+        ax.set_xlabel('$V_{\\mathrm{birth}}$')
+        if idx == 0:
+            ax.set_ylabel('Density')
+        ax.set_title(tc['label'], fontsize=6.5)
+        ax.legend(fontsize=5, frameon=False)
+
+    panel_labels = ['a', 'b', 'c']
+    for idx, ax in enumerate(axes4):
+        ax.text(-0.15, 1.05, panel_labels[idx], transform=ax.transAxes,
+                fontsize=10, fontweight='bold', va='top')
+
+    fig4.tight_layout()
+    fig4.savefig(FIGURES_DIR / "ed_fig4_steady_state_distribution.pdf", format='pdf')
+    fig4.savefig(FIGURES_DIR / "ed_fig4_steady_state_distribution.png", format='png', dpi=300)
+    plt.close(fig4)
+    print("  ED Fig 4 (steady-state distribution) saved.")
 
 
 # ============================================================
