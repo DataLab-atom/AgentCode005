@@ -256,6 +256,42 @@ confirms that the model does not overfit despite having one
 additional parameter relative to the sub-models
 (Extended Data Fig.~2).
 
+\begin{table}[H]
+\centering
+\caption{\textbf{Table~1 $|$ Fitted parameters and model comparison.}
+Maximum-likelihood estimates with 95\% confidence intervals from
+MCMC posterior distributions.  $\Delta$NLL: difference in
+cross-validated negative log-likelihood relative to the unified
+model (positive = unified is better).}
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Species} & $n$ & $K$ & $r$ & \textbf{Regime}
+  & $\Delta$\textbf{NLL} \\
+\midrule
+\Ecoli{}
+  & $1.07$ {\scriptsize[0.74, 1.56]}
+  & $15.1$ {\scriptsize[7.8, 46.4]}
+  & $4.69$ {\scriptsize[3.1, 8.4]}
+  & Adder & $+0.60$ \\
+\Bsubtilis{}
+  & $1.05$ {\scriptsize[0.73, 1.60]}
+  & $14.1$ {\scriptsize[7.2, 51.2]}
+  & $3.41$ {\scriptsize[2.4, 6.2]}
+  & Adder & $+0.87$ \\
+\Spombe{}
+  & $12.4$ {\scriptsize[--]}
+  & --- & ---
+  & Sizer & --- \\
+HeLa
+  & $2.8$--$4.0$ {\scriptsize[--]}
+  & --- & ---
+  & Mixed & --- \\
+\bottomrule
+\end{tabular}
+\label{tab:params}
+\end{table}
+
 \subsection*{Falsifiable predictions beyond existing models}
 
 The unified equation generates three quantitative predictions that
