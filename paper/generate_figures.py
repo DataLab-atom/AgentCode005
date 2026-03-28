@@ -655,20 +655,27 @@ def make_figure5():
     # Baseline parameters (normal mammalian cell)
     mu_base, r_base, K_base, n_base = 0.005, 3.0, 8.0, 2.0
 
+    def _analytical_vd_distribution(mu, r, K, n, x_range):
+        """Compute analytical Vd distribution as Gaussian from steady-state mean/σ."""
+        # Find steady-state Vb via iteration
+        vb = 1.0
+        for _ in range(100):
+            vb = _fast_predict_vd(vb, mu, r, K, n) / 2.0
+        vd_mean = _fast_predict_vd(vb, mu, r, K, n)
+        sigma = (vb**n + K**n)**(1.0/n) / np.sqrt(r)
+        # Return Gaussian PDF
+        return stats.norm.pdf(x_range, loc=vd_mean, scale=max(sigma, 0.01))
+
     # --- Panel a: Rb loss (K reduction) ---
     K_values = [K_base, K_base * 0.5, K_base * 0.2, K_base * 0.05]
     K_labels = ['Normal ($K=8$)', '$K=4$ (50%)', '$K=1.6$ (20%)', '$K=0.4$ (5%)']
     k_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_a = np.linspace(0.1, 30, 300)
     for K_val, label, color in zip(K_values, K_labels, k_colors):
-        sim = simulate_cell_cycles(mu_base, r_base, K_val, n_base,
-                                    n_cells=800, n_generations=30, seed=99)
-        # KDE of division sizes
-        from scipy.stats import gaussian_kde
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.3, 300)
-        ax_a.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_a.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_base, r_base, K_val, n_base, x_range_a)
+        ax_a.plot(x_range_a, pdf, color=color, lw=0.8, label=label)
+        ax_a.fill_between(x_range_a, pdf, alpha=0.1, color=color)
 
     ax_a.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_a.set_ylabel('Density')
@@ -681,13 +688,11 @@ def make_figure5():
     n_labels_c = [f'Normal ($n={n_base}$)', '$n=1$', '$n=0.5$', '$n=0.1$']
     n_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_b = np.linspace(0.1, 40, 300)
     for nv, label, color in zip(n_values, n_labels_c, n_colors):
-        sim = simulate_cell_cycles(mu_base, r_base, K_base, nv,
-                                    n_cells=800, n_generations=30, seed=100)
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.5, 300)
-        ax_b.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_b.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_base, r_base, K_base, nv, x_range_b)
+        ax_b.plot(x_range_b, pdf, color=color, lw=0.8, label=label)
+        ax_b.fill_between(x_range_b, pdf, alpha=0.1, color=color)
 
     ax_b.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_b.set_ylabel('Density')
@@ -700,13 +705,11 @@ def make_figure5():
     mu_labels = ['Normal', '$\\mu \\times 1.5$', '$\\mu \\times 2$', '$\\mu \\times 3$']
     mu_colors = [COLORS['blue'], COLORS['cyan'], COLORS['orange'], COLORS['red']]
 
+    x_range_c = np.linspace(0.1, 30, 300)
     for mu_val, label, color in zip(mu_values, mu_labels, mu_colors):
-        sim = simulate_cell_cycles(mu_val, r_base, K_base, n_base,
-                                    n_cells=800, n_generations=30, seed=101)
-        kde = gaussian_kde(sim.v_division, bw_method=0.15)
-        x_range = np.linspace(0, max(sim.v_division) * 1.3, 300)
-        ax_c.plot(x_range, kde(x_range), color=color, lw=0.8, label=label)
-        ax_c.fill_between(x_range, kde(x_range), alpha=0.1, color=color)
+        pdf = _analytical_vd_distribution(mu_val, r_base, K_base, n_base, x_range_c)
+        ax_c.plot(x_range_c, pdf, color=color, lw=0.8, label=label)
+        ax_c.fill_between(x_range_c, pdf, alpha=0.1, color=color)
 
     ax_c.set_xlabel('Division volume $V_{\\mathrm{d}}$')
     ax_c.set_ylabel('Density')
