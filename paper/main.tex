@@ -316,7 +316,9 @@ Our equation predicts a transient \emph{overshoot} in mean cell size
 when $K$ adjusts on a timescale $\tau_K$ satisfying
 $\tau_K > n/(r\mu_2) \cdot K_2/(K_2 - K_1)$, because the hazard rate
 rescales instantly through $\mu$ while the molecular threshold $K$
-lags behind (Supplementary Section~S4).
+lags behind.  Numerical simulation predicts an overshoot amplitude
+of ${\sim}10\%$ for a twofold increase in $\mu$
+(Supplementary Section~S4).
 
 \textbf{Prediction~2: Birth-size-dependent division noise.}
 The coefficient of variation of division size conditioned on birth
@@ -656,6 +658,18 @@ Starting from three different initial distributions (delta, uniform,
 log-normal), the birth-size distribution converges to the same
 stationary distribution within ${\sim}30$ generations for all
 parameter regimes tested.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/ed_fig5_real_data_validation.pdf}
+\caption{\textbf{Extended Data Fig.~5 $|$ Real data validation.}
+\textbf{a,} Profile likelihood for \Ecoli{} 27$^\circ$C
+(Taheri-Araghi \textit{et al.}, 3{,}725 cell cycles): MLE
+$n = 12$, 95\% CI $[8, 20]$.
+\textbf{b,} Slope-to-$n$ inference for six species using
+published experimental slopes, providing model-independent
+validation of the Hill coefficient mapping.}
 \end{figure}
 
 \end{document}
