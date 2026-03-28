@@ -479,20 +479,121 @@ distance within $<50$ generations for all parameter values tested.
 Analytical conditions for the existence and uniqueness of the
 steady state are derived in Supplementary Section~S2.
 
+%% ========== Display Items ==========
+\clearpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_unified_concept.pdf}
+\caption{\textbf{Figure~1 $|$ A unified equation for cell size control.}
+\textbf{a,} Schematic of the concentration-dilution sensor: a fixed
+amount of inhibitor ($I_{\mathrm{tot}}$) is diluted by growth,
+producing a Hill-type division hazard $h(V)$.
+\textbf{b,} The Hill function $V^n/(V^n+K^n)$ for representative
+$n$ values, showing the continuous interpolation from timer ($n \to 0$)
+through adder ($n = 1$) to sizer ($n \to \infty$).
+\textbf{c,} Parameter space $(n, K/\langle\Vbirth\rangle)$ showing
+the three limiting regimes and representative organisms.}
+\label{fig:concept}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_cross_species.pdf}
+\caption{\textbf{Figure~2 $|$ Cross-species validation.}
+Division size versus birth size for four organisms, with unified
+equation fits (solid lines) and 95\% prediction intervals (shaded).
+\textbf{a,} \Ecoli{} ($n \approx 1.1$, adder).
+\textbf{b,} \Bsubtilis{} ($n \approx 0.9$, adder).
+\textbf{c,} \Spombe{} ($n \approx 12$, near-sizer).
+\textbf{d,} HeLa ($n \approx 3.2$, mixed).}
+\label{fig:crossspecies}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_model_comparison.pdf}
+\caption{\textbf{Figure~3 $|$ Model comparison.}
+\textbf{a,} $\Delta$AIC relative to the unified model for each
+sub-model (sizer, adder, timer) across species.
+\textbf{b,} Out-of-sample log-likelihood from 5-fold cross-validation.
+The unified model outperforms all sub-models in every species.}
+\label{fig:modelcomp}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_predictions.pdf}
+\caption{\textbf{Figure~4 $|$ Novel predictions beyond existing models.}
+\textbf{a,} Predicted transient overshoot in mean cell size after
+nutrient upshift, for different $n$ values.
+\textbf{b,} Birth-size-dependent conditional CV of division size:
+$\mathrm{CV}(\Vdiv \mid \Vbirth) \propto (\Vbirth^n + K^n)^{-1/(2n)}$.
+\textbf{c,} Mapping Hill coefficient $n$ to molecular cooperativity:
+predicted versus measured phosphorylation sites for Whi5 and Rb.}
+\label{fig:predictions}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5_cancer.pdf}
+\caption{\textbf{Figure~5 $|$ Cancer cell size dysregulation as
+parameter perturbation.}
+\textbf{a,} Simulated size distributions for wild-type versus
+Rb-loss ($K \to 0$), reduced cooperativity ($n \downarrow$), and
+uncoupled growth ($\mu \uparrow$).
+\textbf{b,} Predicted effect of CDK4/6 inhibition ($r \downarrow$)
+on cell size: progressive enlargement leading to senescence.}
+\label{fig:cancer}
+\end{figure}
+
 %% ========== References ==========
 \bibliographystyle{unsrtnat}
 \bibliography{references}
 
 %% ========== Extended Data ==========
-% Nature allows up to 10 Extended Data figures/tables
 \clearpage
 \section*{Extended Data}
 
-% Extended Data Figure 1, etc.
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=\textwidth]{figures/extended_data_fig1.pdf}
-% \caption{\textbf{Extended Data Fig.~1 $|$ Title.} Description.}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/ed_fig1_residuals.pdf}
+\caption{\textbf{Extended Data Fig.~1 $|$ Residual analysis.}
+Residuals of the unified equation fit show no systematic dependence
+on birth size for any species, confirming that the functional form
+captures the full structure of the data.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/ed_fig2_sensitivity.pdf}
+\caption{\textbf{Extended Data Fig.~2 $|$ Sensitivity and
+cross-validation.}
+\textbf{a,} Sensitivity of fitted parameters to data preprocessing
+choices (outlier threshold, normalization method).
+\textbf{b,} 5-fold cross-validation results confirming the unified
+model does not overfit.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/ed_fig3_parameter_recovery.pdf}
+\caption{\textbf{Extended Data Fig.~3 $|$ Parameter recovery from
+simulated data.}
+Parameters $(n, K, r)$ estimated from synthetic data generated with
+known ground truth, demonstrating accurate and unbiased recovery
+across all parameter regimes.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/ed_fig4_steady_state_distribution.pdf}
+\caption{\textbf{Extended Data Fig.~4 $|$ Convergence to steady-state
+size distribution.}
+Starting from three different initial distributions (delta, uniform,
+log-normal), the birth-size distribution converges to the same
+stationary distribution within ${\sim}30$ generations for all
+parameter regimes tested.}
+\end{figure}
 
 \end{document}
