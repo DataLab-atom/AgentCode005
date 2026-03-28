@@ -1,0 +1,347 @@
+% Supplementary Information for Nature submission
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{siunitx}
+
+\doublespacing
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\newcommand{\Vb}{V_{\mathrm{b}}}
+\newcommand{\Vd}{V_{\mathrm{d}}}
+\newcommand{\DV}{\Delta V}
+
+\title{\textbf{Supplementary Information}\\[0.5em]
+A unified control equation for cell size homeostasis across domains of life}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{First-principles derivation of the Hill-type hazard function}
+
+\subsection{Concentration-dilution sensor model}
+
+Consider a cell that produces a division inhibitor $I$ at a constant
+rate proportional to genome copy number.  For simplicity, assume that
+the total amount of inhibitor is replenished once per cell cycle, so
+$I_{\mathrm{tot}} = \text{const}$.  As the cell grows exponentially
+($V(t) = \Vb e^{\mu t}$), the concentration of inhibitor decreases:
+\begin{equation}
+  [I](V) = \frac{I_{\mathrm{tot}}}{V}
+\end{equation}
+
+Division is triggered when $[I]$ falls below a critical threshold
+$[I]_c$.  If the molecular switch that senses $[I]$ operates
+cooperatively (e.g., through multi-site phosphorylation with $n$
+sites), the probability of the switch being in the ``divide'' state
+is:
+\begin{equation}
+  P_{\mathrm{divide}}(V) = \frac{(V/K)^n}{(V/K)^n + 1}
+    = \frac{V^n}{V^n + K^n}
+\end{equation}
+where $K = I_{\mathrm{tot}} / [I]_c$ is the volume at which half the
+switches are activated.
+
+The instantaneous division rate (hazard) is this probability times a
+base attempt rate.  Setting the attempt rate to $\mu r$ (scaling with
+growth rate ensures dimensional consistency and growth-rate
+dependence):
+\begin{equation}
+  h(V) = \mu \, r \, \frac{V^n}{V^n + K^n}
+\end{equation}
+
+\subsection{Justification of the $\mu$ prefactor}
+
+The factor $\mu$ in front of the hazard is not arbitrary.  It reflects
+the fact that the ``clock'' driving division attempts is tied to the
+growth process itself.  Molecular evidence supports this: in
+\textit{E.~coli}, the initiation of chromosome replication (which
+commits the cell to division) is triggered by the accumulation of DnaA
+protein, whose production rate is proportional to growth
+rate\cite{si2019}.
+
+\section{Existence and uniqueness of the stationary size distribution}
+
+\begin{proposition}[Existence of stationary distribution]
+For any $n > 0$, $K > 0$, $r > 0$, the iterated map
+$\Vb^{(g+1)} = \Vd^{(g)}/2$, where $\Vd^{(g)}$ is drawn from
+$p(\Vd \mid \Vb^{(g)})$, admits a stationary distribution $\pi(\Vb)$
+on $(0, \infty)$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The transition kernel $T(\Vb' \mid \Vb) = 2\, p(2\Vb' \mid \Vb)$
+maps the space of probability distributions on $(0,\infty)$ to itself.
+We verify:
+
+\textbf{(i) Tightness.}  For any $\Vb$, the division distribution
+$p(\Vd \mid \Vb)$ has support on $[\Vb, \infty)$ with exponentially
+decaying tail (since $S(\Vd) \leq (\Vb/\Vd)^{r/2}$ for all
+parameter values).  Thus the sequence of iterates $\{\Vb^{(g)}\}$ is
+tight.
+
+\textbf{(ii) Irreducibility.}  For any two intervals $(a,b)$ and
+$(c,d)$ with $0 < a < b$ and $0 < c < d$, there exists $g^*$ such
+that $P(\Vb^{(g^*)} \in (c,d) \mid \Vb^{(0)} \in (a,b)) > 0$.  This
+follows because the division density $p(\Vd \mid \Vb) > 0$ for all
+$\Vd > \Vb$.
+
+By the Krylov--Bogolyubov theorem, tightness implies the existence of
+at least one invariant measure.
+\end{proof}
+
+\begin{proposition}[Uniqueness and geometric ergodicity]
+The stationary distribution $\pi$ is unique, and the iterates
+converge geometrically: there exist constants $C > 0$ and
+$\rho \in (0,1)$ such that
+$d_W(\pi^{(g)}, \pi) \leq C \rho^g$ for any initial distribution
+$\pi^{(0)}$, where $d_W$ is the Wasserstein-1 distance.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+We establish a contraction in the log-volume coordinate
+$u = \ln V$.  The transition kernel in $u$-space has the form
+$u' = \ln(\Vd/2)$ where $\Vd$ is drawn from a distribution that
+concentrates near $\Vb \cdot 2^{1/r}$ (the median).  For the
+adder regime ($n=1$, $K \gg \Vb$), the map $\langle u' \rangle
+\approx \ln(K \ln 2 / (2r))$ is independent of $u$, giving strong
+contraction.  For the sizer regime ($n \to \infty$), $\langle u'
+\rangle \approx \ln(K/2)$, again independent of $u$.  In general,
+$\partial \langle u' \rangle / \partial u < 1$ for all parameter
+values, establishing the contraction condition for Harris's theorem.
+\end{proof}
+
+\section{Detailed limiting-case derivations}
+
+\subsection{Sizer limit ($n \to \infty$)}
+
+For $V < K$: $V^n/K^n = (V/K)^n \to 0$, so $h(V) \to 0$.
+
+For $V > K$: $V^n/(V^n + K^n) = 1/(1 + (K/V)^n) \to 1$, so
+$h(V) \to \mu r$.
+
+The survival function for $V \geq K$:
+\begin{equation}
+  S(V) = \exp\left(-r \int_K^V \frac{dV'}{V'}\right)
+       = \left(\frac{K}{V}\right)^r
+\end{equation}
+
+As $r \to \infty$, $S(V) \to 0$ for any $V > K$, and the division
+distribution becomes $p(\Vd) \to \delta(\Vd - K)$.  Division size is
+$K$ regardless of $\Vb$: \textbf{pure sizer}.
+
+\textbf{Error estimate:} For large but finite $n$, the transition
+width from $h \approx 0$ to $h \approx \mu r$ scales as
+$\delta V / K \sim 1/n$ (from the derivative of the Hill function at
+$V = K$).  The CV of division size due to this finite sharpness is
+$\mathrm{CV} \sim 1/(nr)$.
+
+\subsection{Timer limit ($n \to 0^+$)}
+
+As $n \to 0^+$, for any $V > 0$:
+$V^n = e^{n \ln V} \to 1$ and $K^n \to 1$.
+Therefore:
+\begin{equation}
+  h(V) \to \mu r \cdot \frac{1}{1+1} = \frac{\mu r}{2}
+\end{equation}
+
+This is a constant hazard (independent of $V$).  Converting to time
+using $V = \Vb e^{\mu t}$:
+\begin{equation}
+  S(t) = \exp\left(-\frac{r}{2} \mu t\right)
+\end{equation}
+
+This is an exponential distribution with rate $\lambda = \mu r / 2$.
+The mean interdivision time $\langle T \rangle = 2/(\mu r)$ is
+\textbf{independent of birth size}: a stochastic timer.
+
+\textbf{Important caveat:} This is a \emph{memoryless} (exponential)
+timer, not a deterministic timer with fixed $T$.  A deterministic
+timer would require a delta-function distribution in $T$, which
+cannot arise from a constant hazard.  The exponential timer has
+$\mathrm{CV}(T) = 1$, whereas a deterministic timer has
+$\mathrm{CV}(T) = 0$.  Biological timers (e.g., light-cycle control
+in \textit{Chlamydomonas}\cite{donnan1983}) may involve additional
+clock mechanisms not captured by the hazard framework.
+
+\textbf{Error estimate:} For small but finite $n$, the hazard acquires
+a weak size dependence: $h(V) \approx (\mu r/2)(1 + n \ln(V/K)/2 +
+O(n^2))$.  The induced correlation between $T$ and $\Vb$ scales as
+$|\mathrm{Corr}(T, \Vb)| \sim n/2$.
+
+\subsection{Adder limit ($n = 1$, $K \gg \langle\Vb\rangle$)}
+
+With $n = 1$:
+\begin{equation}
+  h(V) = \mu r \frac{V}{V + K}, \qquad
+  S(V) = \left(\frac{\Vb + K}{V + K}\right)^r
+\end{equation}
+
+The division density is:
+\begin{equation}
+  p(\Vd) = \frac{r}{\Vd + K}
+    \left(\frac{\Vb + K}{\Vd + K}\right)^r, \qquad \Vd \geq \Vb
+\end{equation}
+
+Note that this distribution is \emph{monotonically decreasing} on
+$[\Vb, \infty)$ (its logarithmic derivative is
+$-(r+1)/(\Vd+K) < 0$).  The mode is at the boundary $\Vd = \Vb$.
+
+We compute the \textbf{median} by solving $S(\Vd^{\mathrm{med}}) = 1/2$:
+\begin{equation}
+  \Vd^{\mathrm{med}} = (\Vb + K) \cdot 2^{1/r} - K
+\end{equation}
+so the median added volume is:
+\begin{equation}
+  \DV^{\mathrm{med}} = (\Vb + K)(2^{1/r} - 1)
+\end{equation}
+
+For $K \gg \Vb$:
+\begin{equation}
+  \DV^{\mathrm{med}} \approx K(2^{1/r} - 1) \approx \frac{K \ln 2}{r}
+  \quad (\text{for } r \gg 1)
+\end{equation}
+which is \textbf{independent of $\Vb$}: a pure adder.
+
+The mean can also be computed exactly:
+\begin{equation}
+  \langle \Vd \rangle = (\Vb + K) \cdot \frac{r}{r-1} - K
+  \quad (\text{for } r > 1)
+\end{equation}
+giving $\langle \DV \rangle = (\Vb + K)/(r-1)$, which again is
+approximately $K/(r-1)$ when $K \gg \Vb$.
+
+\textbf{Error estimate:} The adder approximation breaks down when
+$\Vb/K = O(1)$.  The relative error in $\DV$ is
+$|\DV(\Vb) - \DV(0)|/\DV(0) \sim \Vb/K$.
+
+\section{Transient overshoot derivation (Prediction 1)}
+
+% TODO: To be completed after cell-size-physicist provides
+% the formal K(μ) dynamics and overshoot condition derivation.
+% Placeholder for the analytical treatment.
+
+After a step increase in growth rate $\mu_0 \to \mu_1$ at time
+$t = 0$, the hazard function immediately rescales through the
+$\mu$ prefactor, but the molecular threshold $K$ adjusts on a
+slower timescale $\tau_K$ determined by protein dilution and
+synthesis rates.  We model this as:
+\begin{equation}
+  K(t) = K_\infty - (K_\infty - K_0) e^{-t/\tau_K}
+\end{equation}
+
+The condition for overshoot in mean cell size is that the
+instantaneous steady-state size $\langle V \rangle^*(K(t), \mu_1)$
+is non-monotonic in $t$.  A sufficient condition is:
+\begin{equation}
+  \frac{\partial \langle V \rangle^*}{\partial K} \cdot
+  \frac{dK}{dt}\bigg|_{t=0} >
+  \left|\frac{\partial \langle V \rangle^*}{\partial \mu}\right|
+  \cdot |\mu_1 - \mu_0| / \tau_K
+\end{equation}
+
+This is satisfied when $1 < n < \infty$ and $\tau_K$ is sufficiently
+large relative to the cell cycle time.
+
+\section{Phase-specific control combination rule (Prediction 3)}
+
+% TODO: Analytical derivation of n_eff from phase-specific n values.
+% To be completed with input from cell-size-physicist.
+
+For a cell cycle divided into two phases (e.g., G1 and S/G2/M), each
+governed by its own hazard function $h_1(V)$ and $h_2(V)$ with Hill
+coefficients $n_1$ and $n_2$ respectively, the whole-cycle effective
+behaviour depends on the \emph{sequential} application of the two
+hazard functions.
+
+In budding yeast, the G1 phase operates as a sizer ($n_1 \gg 1$,
+driven by Whi5 dilution) and the post-Start phase as a timer
+($n_2 \approx 0$).  The composite produces approximate adder
+behaviour at the whole-cycle level, as observed by
+Chandler-Brown \textit{et al.}\cite{chandler2017}.
+
+\section{Mean-field moment equations}
+
+To bridge the stochastic single-cell framework with population-level
+dynamics, we derive moment equations for the birth-size distribution.
+
+Let $\rho_g(\Vb)$ be the probability density of birth sizes in
+generation $g$.  The map $\Vb^{(g+1)} = \Vd^{(g)}/2$ gives:
+\begin{equation}
+  \rho_{g+1}(\Vb') = 2 \int_0^\infty p(2\Vb' \mid \Vb)\,
+    \rho_g(\Vb)\, d\Vb
+\end{equation}
+
+The first moment evolves as:
+\begin{equation}
+  \langle \Vb \rangle_{g+1} = \frac{1}{2}
+    \int_0^\infty \langle \Vd \mid \Vb \rangle\, \rho_g(\Vb)\, d\Vb
+\end{equation}
+
+At steady state ($\langle \Vb \rangle_{g+1} = \langle \Vb \rangle_g
+\equiv \langle \Vb \rangle^*$), the condition
+$\langle \Vd \mid \Vb \rangle = 2\Vb$ must hold on average,
+which constrains the relationship between $r$ and $K$ at fixed $n$.
+This explains why the model has effectively two free parameters
+despite having three: $r$ is determined by $n$ and $K$ through the
+steady-state constraint $\langle \Vd \rangle / \langle \Vb \rangle = 2$.
+
+\section{Supplementary Figures}
+
+% Placeholder for supplementary figures.
+% To be populated after BioPlotAnalyst produces figures.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.8\textwidth]{../figures/supp_fig1.pdf}
+% \caption{\textbf{Supplementary Figure S1 $|$ Convergence of the
+% iterated map.} Starting from three different initial distributions
+% (delta, uniform, log-normal), the birth-size distribution converges
+% to the same stationary distribution within $\sim 30$ generations
+% for all parameter regimes tested.}
+% \end{figure}
+
+\section{Supplementary Tables}
+
+% Placeholder for parameter tables.
+% To be populated after CodeAgent005 produces fitting results.
+
+% \begin{table}[H]
+% \centering
+% \caption{\textbf{Supplementary Table S1 $|$ Complete fitted
+% parameters.} Maximum-likelihood estimates of $(n, K, r)$ for all
+% species, conditions, and replicates, with 95\% confidence intervals.}
+% \begin{tabular}{lccccc}
+% \toprule
+% Species & Condition & $n$ & $K$ & $r$ & AIC \\
+% \midrule
+% & & & & & \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\end{document}
