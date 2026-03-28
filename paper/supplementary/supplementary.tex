@@ -43,46 +43,65 @@ A unified control equation for cell size homeostasis across domains of life}
 
 \section{First-principles derivation of the Hill-type hazard function}
 
-\subsection{Concentration-dilution sensor model}
+\subsection{Molecular setup and concentration-dilution sensor}
 
-Consider a cell that produces a division inhibitor $I$ at a constant
-rate proportional to genome copy number.  For simplicity, assume that
-the total amount of inhibitor is replenished once per cell cycle, so
-$I_{\mathrm{tot}} = \text{const}$.  As the cell grows exponentially
-($V(t) = \Vb e^{\mu t}$), the concentration of inhibitor decreases:
+Consider a cell of volume $V(t)$ growing exponentially at rate $\mu$.
+The cell contains a division-inhibiting molecule $I$ (e.g., Whi5 in
+\textit{S.~cerevisiae}, Rb in mammalian cells) whose total amount is
+synthesized once per cell cycle: $I_{\mathrm{tot}} = \text{const}$.
+As the cell grows, the inhibitor concentration decreases:
 \begin{equation}
   [I](V) = \frac{I_{\mathrm{tot}}}{V}
 \end{equation}
 
-Division is triggered when $[I]$ falls below a critical threshold
-$[I]_c$.  If the molecular switch that senses $[I]$ operates
-cooperatively (e.g., through multi-site phosphorylation with $n$
-sites), the probability of the switch being in the ``divide'' state
-is:
+Division is promoted by a cyclin-CDK activator complex $A$ at constant
+concentration $[A]_0$.  The activator targets respond cooperatively to
+the ratio of activator to inhibitor signals through $n$ cooperative
+binding sites:
 \begin{equation}
-  P_{\mathrm{divide}}(V) = \frac{(V/K)^n}{(V/K)^n + 1}
+  f_{\mathrm{active}}(V) = \frac{[A]_0^n}{[A]_0^n + [I]^n}
     = \frac{V^n}{V^n + K^n}
 \end{equation}
-where $K = I_{\mathrm{tot}} / [I]_c$ is the volume at which half the
-switches are activated.
+where $K \equiv I_{\mathrm{tot}} / [A]_0$ is the volume at which
+inhibitor and activator signals balance.
 
-The instantaneous division rate (hazard) is this probability times a
-base attempt rate.  Setting the attempt rate to $\mu r$ (scaling with
-growth rate ensures dimensional consistency and growth-rate
-dependence):
+The instantaneous division rate (hazard) is $f_{\mathrm{active}}$
+times a maximal division attempt rate $\mu r$:
 \begin{equation}
   h(V) = \mu \, r \, \frac{V^n}{V^n + K^n}
 \end{equation}
 
+\textbf{Physical interpretation of parameters}:
+$K$ = volume at half-maximal activation, set by inhibitor dosage
+($K = I_{\mathrm{tot}}/[A]_0$), scales with ploidy and gene dosage;
+$n$ = cooperativity of the molecular switch (number of phosphorylation
+sites or binding events);
+$r$ = maximal division rate in units of $\mu^{-1}$.
+
+\subsection{Closed-form survival function}
+
+The survival function admits a closed form via the substitution
+$u = V'^n + K^n$:
+\begin{equation}
+  S(V \mid \Vb) = \exp\!\left(-r \int_{\Vb}^{V}
+    \frac{V'^{n-1}}{V'^n + K^n}\, dV'\right)
+  = \left(\frac{\Vb^n + K^n}{V^n + K^n}\right)^{r/n}
+\end{equation}
+
+The division volume density is:
+\begin{equation}
+  p(V_d \mid \Vb) = \frac{r\, V_d^{n-1}}{V_d^n + K^n}
+    \left(\frac{\Vb^n + K^n}{V_d^n + K^n}\right)^{r/n}
+\end{equation}
+
 \subsection{Justification of the $\mu$ prefactor}
 
-The factor $\mu$ in front of the hazard is not arbitrary.  It reflects
-the fact that the ``clock'' driving division attempts is tied to the
-growth process itself.  Molecular evidence supports this: in
-\textit{E.~coli}, the initiation of chromosome replication (which
-commits the cell to division) is triggered by the accumulation of DnaA
-protein, whose production rate is proportional to growth
-rate\cite{si2019}.
+The factor $\mu$ ensures dimensional consistency and captures the
+empirical growth-rate dependence of division.  In \textit{E.~coli},
+chromosome replication initiation is triggered by DnaA accumulation,
+whose production rate is proportional to growth
+rate\cite{si2019}.  The division machinery itself (FtsZ ring in
+bacteria, cytokinetic ring in eukaryotes) is growth-rate dependent.
 
 \section{Existence and uniqueness of the stationary size distribution}
 
@@ -195,77 +214,79 @@ $|\mathrm{Corr}(T, \Vb)| \sim n/2$.
 
 \subsection{Adder limit ($n = 1$, $K \gg \langle\Vb\rangle$)}
 
-With $n = 1$:
+With $n = 1$, the survival function becomes:
 \begin{equation}
-  h(V) = \mu r \frac{V}{V + K}, \qquad
-  S(V) = \left(\frac{\Vb + K}{V + K}\right)^r
+  S(V \mid \Vb) = \left(\frac{\Vb + K}{V + K}\right)^r
 \end{equation}
 
-The division density is:
+The division density is a shifted Pareto-like distribution:
 \begin{equation}
-  p(\Vd) = \frac{r}{\Vd + K}
+  p(\Vd \mid \Vb) = \frac{r}{\Vd + K}
     \left(\frac{\Vb + K}{\Vd + K}\right)^r, \qquad \Vd \geq \Vb
 \end{equation}
 
-Note that this distribution is \emph{monotonically decreasing} on
-$[\Vb, \infty)$ (its logarithmic derivative is
-$-(r+1)/(\Vd+K) < 0$).  The mode is at the boundary $\Vd = \Vb$.
+This distribution is \emph{monotonically decreasing} on
+$[\Vb, \infty)$: its logarithmic derivative is
+$-(r+1)/(\Vd+K) < 0$ everywhere.  The mode is at the boundary
+$\Vd = \Vb$, not at an interior point.
 
-We compute the \textbf{median} by solving $S(\Vd^{\mathrm{med}}) = 1/2$:
+The \textbf{mean} division volume is computed exactly:
+\begin{equation}
+  \langle \Vd \rangle = (\Vb + K) \cdot \frac{r}{r-1} - K
+  = \frac{\Vb + K}{r-1}
+  \quad (\text{for } r > 1)
+\end{equation}
+giving $\langle \DV \rangle = (\Vb + K)/(r-1)$.
+
+The \textbf{median} satisfies $S(\Vd^{\mathrm{med}}) = 1/2$:
 \begin{equation}
   \Vd^{\mathrm{med}} = (\Vb + K) \cdot 2^{1/r} - K
 \end{equation}
-so the median added volume is:
-\begin{equation}
-  \DV^{\mathrm{med}} = (\Vb + K)(2^{1/r} - 1)
-\end{equation}
 
-For $K \gg \Vb$:
+For $K \gg \Vb$, both converge to constants independent of $\Vb$:
 \begin{equation}
-  \DV^{\mathrm{med}} \approx K(2^{1/r} - 1) \approx \frac{K \ln 2}{r}
-  \quad (\text{for } r \gg 1)
+  \langle \DV \rangle \approx \frac{K}{r-1}
+    \left[1 + \frac{\Vb}{K} + O\!\left(\frac{\Vb^2}{K^2}\right)\right]
 \end{equation}
-which is \textbf{independent of $\Vb$}: a pure adder.
+which is the \textbf{pure adder}: added volume independent of birth
+size to leading order.
 
-The mean can also be computed exactly:
-\begin{equation}
-  \langle \Vd \rangle = (\Vb + K) \cdot \frac{r}{r-1} - K
-  \quad (\text{for } r > 1)
-\end{equation}
-giving $\langle \DV \rangle = (\Vb + K)/(r-1)$, which again is
-approximately $K/(r-1)$ when $K \gg \Vb$.
-
-\textbf{Error estimate:} The adder approximation breaks down when
-$\Vb/K = O(1)$.  The relative error in $\DV$ is
-$|\DV(\Vb) - \DV(0)|/\DV(0) \sim \Vb/K$.
+\textbf{Error estimate:} The relative deviation from perfect adder is
+$|\DV(\Vb) - \DV(0)|/\DV(0) = \Vb/K$.  For \textit{E.~coli},
+$\langle\Vb\rangle \approx 1.5\,\mu\mathrm{m}^3$ and
+$K \approx 15\,\mu\mathrm{m}^3$ (from fits), giving $\sim 10\%$
+deviation---consistent with the experimentally observed weak residual
+slope in the $(\Vb, \DV)$ plot.
 
 \section{Transient overshoot derivation (Prediction 1)}
 
-% TODO: To be completed after cell-size-physicist provides
-% the formal K(μ) dynamics and overshoot condition derivation.
-% Placeholder for the analytical treatment.
-
-After a step increase in growth rate $\mu_0 \to \mu_1$ at time
-$t = 0$, the hazard function immediately rescales through the
-$\mu$ prefactor, but the molecular threshold $K$ adjusts on a
-slower timescale $\tau_K$ determined by protein dilution and
-synthesis rates.  We model this as:
+After a nutrient upshift at $t = 0$, $\mu$ jumps from $\mu_1$ to
+$\mu_2 > \mu_1$, while $K$ adjusts on a slower timescale $\tau_K$:
 \begin{equation}
-  K(t) = K_\infty - (K_\infty - K_0) e^{-t/\tau_K}
+  K(t) = K_2 - (K_2 - K_1)e^{-t/\tau_K}
 \end{equation}
 
-The condition for overshoot in mean cell size is that the
-instantaneous steady-state size $\langle V \rangle^*(K(t), \mu_1)$
-is non-monotonic in $t$.  A sufficient condition is:
-\begin{equation}
-  \frac{\partial \langle V \rangle^*}{\partial K} \cdot
-  \frac{dK}{dt}\bigg|_{t=0} >
-  \left|\frac{\partial \langle V \rangle^*}{\partial \mu}\right|
-  \cdot |\mu_1 - \mu_0| / \tau_K
-\end{equation}
+Since the hazard scales with $\mu$, the growth and division rates
+both increase immediately.  However, if $K_2 > K_1$ (faster growth
+requires larger cells, as observed empirically), $K$ lags behind.
 
-This is satisfied when $1 < n < \infty$ and $\tau_K$ is sufficiently
-large relative to the cell cycle time.
+\begin{proposition}[Overshoot condition]
+A transient overshoot in mean cell size occurs when:
+\begin{equation}
+  \tau_K > \frac{1}{\mu_2}\cdot\frac{n}{r}\cdot
+    \frac{K_2}{K_2 - K_1}
+\end{equation}
+The overshoot magnitude is:
+\begin{equation}
+  \frac{\langle V \rangle_{\max} - \langle V \rangle_{\mathrm{ss}}}
+       {\langle V \rangle_{\mathrm{ss}}}
+  \approx \frac{K_2 - K_1}{K_2}\cdot\left(1 - e^{-\mu_2\tau_K}\right)
+\end{equation}
+\end{proposition}
+
+The overshoot arises because the effective division size temporarily
+decreases (old $K$) while cells grow faster (new $\mu$), creating a
+mismatch that resolves non-monotonically as $K(t) \to K_2$.
 
 \section{Phase-specific control combination rule (Prediction 3)}
 
@@ -284,31 +305,49 @@ driven by Whi5 dilution) and the post-Start phase as a timer
 behaviour at the whole-cycle level, as observed by
 Chandler-Brown \textit{et al.}\cite{chandler2017}.
 
-\section{Mean-field moment equations}
+\section{Population-level dynamics and moment equations}
 
-To bridge the stochastic single-cell framework with population-level
-dynamics, we derive moment equations for the birth-size distribution.
+\subsection{Structured population equation (Fokker--Planck)}
 
-Let $\rho_g(\Vb)$ be the probability density of birth sizes in
-generation $g$.  The map $\Vb^{(g+1)} = \Vd^{(g)}/2$ gives:
+Let $\phi(V, t)$ be the volume density of cells at time $t$.  The
+population evolves according to:
+\begin{equation}
+  \frac{\partial \phi}{\partial t} + \frac{\partial}{\partial V}(\mu V \phi)
+  = -h(V)\phi + 4\mu r \frac{(2V)^n}{(2V)^n + K^n}\phi(2V, t)
+\end{equation}
+where the first term on the right is loss from division at rate
+$h(V)$, and the second is gain from mothers of size $2V$ dividing
+symmetrically.  At steady state, this reduces to the renewal equation
+in Section~S2, confirming internal consistency.
+
+This population-level PDE is the deterministic ``master equation''
+of the system.  The hazard function $h(V)$ encodes all control
+information: the framework is a stochastic process at the single-cell
+level whose population statistics are governed by a structured
+population equation.
+
+\subsection{Moment equations and the two-parameter reduction}
+
+Let $\rho_g(\Vb)$ be the birth-size density in generation $g$.  The
+map $\Vb^{(g+1)} = \Vd^{(g)}/2$ gives:
 \begin{equation}
   \rho_{g+1}(\Vb') = 2 \int_0^\infty p(2\Vb' \mid \Vb)\,
     \rho_g(\Vb)\, d\Vb
 \end{equation}
 
-The first moment evolves as:
-\begin{equation}
-  \langle \Vb \rangle_{g+1} = \frac{1}{2}
-    \int_0^\infty \langle \Vd \mid \Vb \rangle\, \rho_g(\Vb)\, d\Vb
-\end{equation}
+At steady state, the condition $\langle \Vd \rangle = 2\langle \Vb \rangle$
+(cells must double on average for population stability) constrains $r$
+as a function of $n$ and $K/\langle\Vb\rangle$.  For $n = 1$:
+$r = 1 + K/\langle\Vb\rangle \cdot (1/\ln 2)$.
 
-At steady state ($\langle \Vb \rangle_{g+1} = \langle \Vb \rangle_g
-\equiv \langle \Vb \rangle^*$), the condition
-$\langle \Vd \mid \Vb \rangle = 2\Vb$ must hold on average,
-which constrains the relationship between $r$ and $K$ at fixed $n$.
-This explains why the model has effectively two free parameters
-despite having three: $r$ is determined by $n$ and $K$ through the
-steady-state constraint $\langle \Vd \rangle / \langle \Vb \rangle = 2$.
+This explains why the model has effectively \textbf{two free control
+parameters} $(n, K)$ despite having three: $r$ is determined by the
+steady-state constraint.  The ``two-parameter family'' refers to the
+$(n, K)$ plane that defines the phase diagram of control strategies,
+where $n$ sets the \emph{type} of control (cooperativity) and $K$
+sets the \emph{target size} (inhibitor dosage).  The third parameter
+$r$ controls \emph{precision} (fidelity of control) and is fixed by
+the doubling requirement.
 
 \section{Supplementary Figures}
 

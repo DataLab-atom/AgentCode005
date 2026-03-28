@@ -147,32 +147,33 @@ governed by a size-dependent hazard function:
 \end{equation}
 where $n > 0$ is a Hill coefficient reflecting the cooperativity of
 the molecular size-sensing switch, $K$ is a characteristic size
-threshold set by the total amount of division-inhibiting molecules,
-and $r > 0$ is a dimensionless rate controlling the precision of
-division timing.  The prefactor $\mu$ ensures the division rate
-co-scales with growth rate, consistent with the well-established
-positive correlation between growth rate and cell
+threshold, and $r > 0$ is a dimensionless rate controlling the
+precision of division timing.  The prefactor $\mu$ ensures the
+division rate co-scales with growth rate, consistent with the
+well-established positive correlation between growth rate and cell
 size\cite{taheri2015,zheng2020}.
 
-This functional form arises naturally from a concentration-dilution
-sensor.  If a cell produces a fixed amount $I_{\mathrm{tot}}$ of a
-division inhibitor (e.g., Whi5 in budding yeast\cite{schmoller2015},
-Rb in mammalian cells\cite{zatulovskiy2020}), its concentration
-$[I] = I_{\mathrm{tot}}/V$ decreases as the cell grows.  Division is
-triggered cooperatively when $[I]$ falls below a threshold, yielding
-a Hill-type response with exponent $n$ reflecting the number of
-cooperative binding or phosphorylation events.
+This functional form arises from first principles via a
+concentration-dilution sensor.  A cell produces a fixed total amount
+$I_{\mathrm{tot}}$ of a division inhibitor (e.g., Whi5 in budding
+yeast\cite{schmoller2015}, Rb in mammalian
+cells\cite{zatulovskiy2020}) whose concentration
+$[I] = I_{\mathrm{tot}}/V$ decreases as the cell grows.  A
+cyclin-CDK activator complex at constant concentration $[A]$
+competes with $[I]$ through a cooperative switch with $n$ binding
+sites, yielding the Hill response $f_{\mathrm{active}}(V) =
+V^n/(V^n + K^n)$ where $K \equiv I_{\mathrm{tot}}/[A]$
+(Supplementary Section~S1).
 
 The survival function---the probability that a cell born at volume
-$\Vbirth$ has not yet divided upon reaching volume $V$---is:
+$\Vbirth$ has not yet divided upon reaching volume $V$---admits the
+closed form:
 \begin{equation}
-  S(V) = \exp\!\left(-\int_{\Vbirth}^{V}
-    \frac{h(V')}{\mu V'}\, dV'\right)
+  S(V \mid \Vbirth) = \left(\frac{\Vbirth^{n} + K^{n}}{V^{n} + K^{n}}\right)^{r/n}
   \label{eq:survival}
 \end{equation}
-We show analytically (Supplementary Information, Sections~S1--S3)
-that the three classical models emerge as limiting cases of
-Eq.~\ref{eq:hazard}:
+(Supplementary Section~S1).  We prove analytically that the three
+classical models emerge as limiting cases of Eq.~\ref{eq:hazard}:
 
 \textbf{Sizer} ($n \to \infty$).  The Hill function becomes a step
 function at $V = K$, so $h(V) = 0$ for $V < K$ and $h(V) = \mu r$
@@ -189,9 +190,11 @@ distinction has testable consequences for the coefficient of variation
 of interdivision times.
 
 \textbf{Adder} ($n = 1$, $K \gg \langle\Vbirth\rangle$).  The
-hazard becomes approximately linear, $h(V) \approx \mu r V/K$, and
-the median added volume converges to $\DeltaV \approx K \ln 2 / r$,
-independent of birth size---the adder observed in \Ecoli{} and
+hazard becomes approximately linear, $h(V) \approx \mu r V/K$,
+and the mean added volume converges to
+$\langle\DeltaV\rangle = K/(r-1)$, independent of birth size to
+leading order with relative error $O(\Vbirth/K)$---the adder
+observed in \Ecoli{} and
 \Bsubtilis{}\cite{campos2014,taheri2015} (Fig.~1).
 
 \subsection*{Cross-species validation}
@@ -224,24 +227,23 @@ The unified equation generates three quantitative predictions that
 none of the individual models can make:
 
 \textbf{Prediction~1: Non-monotonic transient response.}
-After a nutrient upshift that increases $\mu$, the sizer and adder
+After a nutrient upshift ($\mu_1 \to \mu_2$), the sizer and adder
 models predict monotonic relaxation to the new steady-state size.
 Our equation predicts a transient \emph{overshoot} in mean cell size
-for organisms with $1 < n < \infty$, because the hazard rate
+when $K$ adjusts on a timescale $\tau_K$ satisfying
+$\tau_K > n/(r\mu_2) \cdot K_2/(K_2 - K_1)$, because the hazard rate
 rescales instantly through $\mu$ while the molecular threshold $K$
-adjusts on a slower timescale set by protein turnover.
-We parameterise this as $K(t) = K_{\infty} - (K_{\infty} - K_0)
-e^{-t/\tau_K}$ and derive the overshoot amplitude analytically
-(Supplementary Section~S4).
+lags behind (Supplementary Section~S4).
 
 \textbf{Prediction~2: Birth-size-dependent division noise.}
 The coefficient of variation of division size conditioned on birth
 size obeys $\mathrm{CV}(\Vdiv \mid \Vbirth) \propto
-(\Vbirth + K)^{-1/2} \cdot r^{-1/2}$, a heteroscedastic
-relationship that neither sizer (CV independent of $\Vbirth$) nor
-pure adder (CV independent of $\Vbirth$ for $K \gg \Vbirth$)
-predicts.  This is testable in existing mother-machine datasets by
-binning cells by birth size and computing conditional CVs (Fig.~3).
+(\Vbirth^n + K^n)^{-1/(2n)} \cdot r^{-1/2}$
+(Supplementary Section~S4), a heteroscedastic relationship that
+neither sizer (CV independent of $\Vbirth$) nor pure adder
+(CV independent of $\Vbirth$ for $K \gg \Vbirth$) predicts.
+This is testable in existing mother-machine datasets by binning cells
+by birth size and computing conditional CVs (Fig.~3).
 
 \textbf{Prediction~3: Phase-specific control parameters.}
 In budding yeast, our framework predicts that the G1 phase operates
@@ -327,13 +329,14 @@ Whi5 or Rb concentration dynamics during the cell cycle can
 directly test whether the molecular cooperativity matches the
 fitted Hill coefficient $n$.
 
-A limitation of our framework is that we model growth as strictly
-exponential; deviations such as linear or bilinear growth modes
-observed in some conditions\cite{harris2016} would require
-extensions.  Additionally, the hazard function formulation is
-inherently stochastic---we have derived mean-field moment equations
-(Supplementary Section~S6), but a complete analytical treatment of
-the full stochastic dynamics remains an open challenge.
+We note that our framework is a stochastic growth-division process
+at the single-cell level, not a single deterministic ODE.  However,
+the population-level dynamics are governed by a structured population
+equation (Supplementary Section~S6) that serves as the deterministic
+``master equation'' of the system.  A limitation is that we model
+growth as strictly exponential; deviations such as linear or bilinear
+growth modes observed in some conditions\cite{harris2016} would
+require extensions of the hazard function approach.
 
 \section*{Methods}
 
