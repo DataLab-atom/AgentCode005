@@ -521,6 +521,52 @@ Reduced cooperativity $n$ (due to loss of feedback regulators) predicts:
 since $g(n)$ is increasing as $n$ decreases (less cooperative switching → noisier division). This provides a \emph{quantitative} link between molecular perturbation and the classical pathological observation of tumor cell size pleomorphism.
 
 %% ================================================================
+\section{Important Clarifications and Honest Discussion}
+%% ================================================================
+
+\subsection{On the ``two-parameter family'' claim}
+
+The model has three parameters $(n, K, r)$. However, only $(n, K)$ are \emph{control parameters} that determine the qualitative behavior (sizer/adder/timer). The third parameter $r$ is a \emph{precision parameter} that controls the sharpness of division timing without changing the control strategy. Specifically:
+\begin{itemize}
+  \item $n$ determines the \emph{type} of control (cooperativity of the molecular switch).
+  \item $K$ determines the \emph{target size} (set by inhibitor dosage).
+  \item $r$ determines the \emph{fidelity} of control (higher $r$ = narrower size distributions).
+\end{itemize}
+
+This is analogous to a feedback controller where $(n, K)$ specify the setpoint and gain type, while $r$ specifies the loop bandwidth. The ``two-parameter family'' refers to the $(n, K)$ plane that defines the phase diagram of control strategies.
+
+Furthermore, in practice $r$ is often constrained by the requirement $\langle\Vd\rangle = 2\langle\Vb\rangle$ at steady state (cells must double on average for population stability), which fixes $r$ as a function of $n$ and $K/\langle\Vb\rangle$. For $n = 1$: $r = 1 + K/\langle\Vb\rangle \cdot (1/\ln 2)$.
+
+\subsection{Stochastic timer vs.\ deterministic timer}
+
+An important distinction: the $n \to 0$ limit yields a \emph{stochastic timer} (exponential distribution of interdivision times) rather than a \emph{deterministic timer} ($T = \text{const}$ for all cells). This is more realistic:
+\begin{enumerate}
+  \item No biological timer is perfectly deterministic. Even the most clock-like processes (circadian rhythms, DNA replication timing) show cell-to-cell variability.
+  \item Experimental data from putative ``timer'' organisms (early \textit{Caulobacter} studies, \textit{Chlamydomonas} under light cycles) always show substantial CV in interdivision times, consistent with stochastic rather than deterministic timing.
+  \item A deterministic timer can be recovered as a further limit $r \to \infty$ within $n \to 0$: the CV of the exponential distribution is $1/\sqrt{r/2}$, so $r \to \infty$ concentrates the distribution around the mean. However, this double limit ($n \to 0$, $r \to \infty$) requires careful ordering.
+\end{enumerate}
+
+The stochastic timer is thus the generic ``timer-like'' behavior; a deterministic timer is a singular sub-limit.
+
+\subsection{Population-level Fokker--Planck formulation}
+
+To address the gap between the stochastic hazard formulation and a single deterministic equation, we derive the population-level dynamics. Let $\phi(V, t)$ be the volume density of cells at time $t$. The population evolves according to:
+\begin{equation}
+  \frac{\partial \phi}{\partial t} + \frac{\partial}{\partial V}(\mu V \phi) = -h(V)\phi + 2\int_V^{\infty} h(V')\phi(V',t)\, \delta(V - V'/2)\, \dd V'
+  \label{eq:fokker_planck}
+\end{equation}
+where the first term on the right is loss due to division at rate $h(V)$, and the second term is gain from mother cells of size $2V$ dividing (symmetric division).
+
+Substituting our hazard function and simplifying:
+\begin{equation}
+  \frac{\partial \phi}{\partial t} = -\mu\frac{\partial(V\phi)}{\partial V} - \mu r\frac{V^n}{V^n + K^n}\phi + 4\mu r \frac{(2V)^n}{(2V)^n + K^n}\phi(2V, t).
+\end{equation}
+
+At steady state ($\partial\phi/\partial t = 0$), this is a functional equation for the size distribution $\phi^*(V)$. The steady-state equation is equivalent to the renewal equation~\eqref{eq:renewal} derived earlier, confirming internal consistency.
+
+This population-level PDE is the ``single equation'' that governs cell size dynamics, with the hazard function $h(V)$ encoding all control information. The framework is not a deterministic ODE for individual cells, but rather a \emph{stochastic process at the single-cell level} whose population-level statistics are governed by Eq.~\eqref{eq:fokker_planck}.
+
+%% ================================================================
 \section{Summary: Content for main.tex Sections}
 %% ================================================================
 
