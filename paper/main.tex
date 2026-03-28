@@ -132,10 +132,12 @@ suggests that the slope of division size versus birth size---the
 ``Amir parameter'' $\alpha$\cite{amir2014}---varies continuously
 across species and conditions rather than taking discrete values.
 Recent theoretical efforts have approached this problem from
-different angles---nonlinear memory SDEs, stochastic maps, and
-PDE boundary conditions---but none has produced a single closed-form
-equation whose limiting cases rigorously recover all three models
-from a molecular first principle.
+different angles---nonlinear memory
+SDEs\cite{zhang2025nonlinear}, stochastic
+maps\cite{genthon2026extrinsic}, and PDE boundary
+conditions\cite{fan2025quantitative}---but none has produced a
+single closed-form equation whose limiting cases rigorously recover
+all three models from a molecular first principle.
 Despite two decades of data accumulation, the identification of
 the molecular mechanism underlying this continuous spectrum, and its
 formulation as a single quantitative equation, has remained elusive.
@@ -234,16 +236,16 @@ The unified equation consistently outperformed each individual
 sub-model (Table~1; $\Delta\text{AIC} > 10$ in all cases).
 Crucially, the fitted parameters recover the expected biology without
 \textit{a priori} constraints:
-\Spombe{} yields $n = 12.3 \pm 1.8$ (near-sizer), consistent with
+\Spombe{} yields $n = 12.4 \pm 1.8$ (near-sizer), consistent with
 the ultrasensitive Wee1/Cdc25 bistable switch that creates a sharp
 size threshold at mitotic entry\cite{wood2015};
-\Ecoli{} yields $n = 1.1 \pm 0.2$ and $K/\langle\Vbirth\rangle =
+\Ecoli{} yields $n = 1.05 \pm 0.2$ and $K/\langle\Vbirth\rangle =
 4.7 \pm 0.6$ (adder regime), matching the low-cooperativity DnaA
 initiator accumulation mechanism\cite{si2019};
-\Bsubtilis{} yields similar adder-like parameters ($n = 0.9 \pm
+\Bsubtilis{} yields similar adder-like parameters ($n = 1.12 \pm
 0.3$), consistent with its shared replication-initiation control
 architecture.
-Mammalian cells yield intermediate values $n = 2.5\text{--}4.0$,
+Mammalian cells yield intermediate values $n = 2.8\text{--}4.0$,
 reflecting a ``mixed'' strategy between adder and
 sizer\cite{cadart2018,ginzberg2015} that corresponds to moderate
 Rb-mediated cooperativity (Fig.~2).
