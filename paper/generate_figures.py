@@ -40,7 +40,10 @@ from unified_model import (
 # ============================================================
 # Style configuration — Nature standards
 # ============================================================
-plt.style.use(['science', 'nature'])
+try:
+    plt.style.use(['science', 'nature'])
+except Exception:
+    pass  # Fall back to default style with manual rcParams below
 plt.rcParams.update({
     'font.family': 'serif',
     'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif'],
