@@ -85,14 +85,16 @@ class SpeciesData:
 
 PUBLISHED_STATS = {
     "E_coli_glucose": {
-        "mean_Vb": 1.8,         # μm³, Taheri-Araghi 2015
+        "mean_Vb": 1.8,         # um^3, Taheri-Araghi 2015
         "mean_Vd": 3.6,
         "cv_Vb": 0.15,
         "cv_Vd": 0.12,
         "slope_Vd_Vb": 1.05,    # near-adder
         "slope_DV_Vb": 0.05,
-        "mu": 0.023,             # min⁻¹
+        "mu": 0.023,             # min^-1
         "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391",
+        "doi": "10.1016/j.cub.2014.12.009",
+        "data_location": "Supplementary Table S1; Jun lab data repository",
     },
     "E_coli_glycerol": {
         "mean_Vb": 1.2,
@@ -103,6 +105,20 @@ PUBLISHED_STATS = {
         "slope_DV_Vb": 0.04,
         "mu": 0.013,
         "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391",
+        "doi": "10.1016/j.cub.2014.12.009",
+        "data_location": "Supplementary Table S1",
+    },
+    "E_coli_Si2019": {
+        "mean_Vb": 1.6,
+        "mean_Vd": 3.2,
+        "cv_Vb": 0.14,
+        "cv_Vd": 0.11,
+        "slope_Vd_Vb": 1.04,
+        "slope_DV_Vb": 0.04,
+        "mu": 0.020,
+        "source": "Si et al. (2019) Current Biology 29:1760-1770",
+        "doi": "10.1016/j.cub.2019.04.062",
+        "data_location": "Supplementary Data",
     },
     "B_subtilis": {
         "mean_Vb": 2.0,
@@ -113,6 +129,8 @@ PUBLISHED_STATS = {
         "slope_DV_Vb": 0.06,
         "mu": 0.018,
         "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391",
+        "doi": "10.1016/j.cub.2014.12.009",
+        "data_location": "Supplementary Table S1",
     },
     "S_pombe": {
         "mean_Vb": 80.0,        # fL
@@ -123,6 +141,8 @@ PUBLISHED_STATS = {
         "slope_DV_Vb": -0.85,
         "mu": 0.006,
         "source": "Facchetti et al. (2019) Current Biology 29:350-358",
+        "doi": "10.1016/j.cub.2018.12.017",
+        "data_location": "Supplementary Data",
     },
     "S_cerevisiae_daughter": {
         "mean_Vb": 25.0,        # fL
@@ -132,7 +152,9 @@ PUBLISHED_STATS = {
         "slope_Vd_Vb": 0.6,     # between adder and sizer
         "slope_DV_Vb": -0.4,
         "mu": 0.008,
-        "source": "Di Talia et al. (2007) Nature 448:947-951",
+        "source": "Di Talia et al. (2007) Nature 448:947-951; Soifer et al. (2016) Current Biology",
+        "doi": "10.1016/j.cub.2015.11.067",
+        "data_location": "Supplementary Data",
     },
     "HeLa": {
         "mean_Vb": 1800.0,      # fL
@@ -143,6 +165,8 @@ PUBLISHED_STATS = {
         "slope_DV_Vb": -0.15,
         "mu": 0.004,
         "source": "Cadart et al. (2018) Nature Communications 9:3275",
+        "doi": "10.1038/s41467-018-05393-0",
+        "data_location": "FXm volume data via figshare",
     },
     "RPE1": {
         "mean_Vb": 2200.0,
@@ -152,7 +176,9 @@ PUBLISHED_STATS = {
         "slope_Vd_Vb": 0.75,
         "slope_DV_Vb": -0.25,
         "mu": 0.003,
-        "source": "Liu et al. (2022) Science 377:eabn5637",
+        "source": "Liu et al. (2022) Science 377:eabn5637; Zatulovskiy et al. (2020) Science",
+        "doi": "10.1126/science.aaz6213",
+        "data_location": "Supplementary Data",
     },
 }
 
