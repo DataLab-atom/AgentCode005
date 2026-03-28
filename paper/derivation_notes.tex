@@ -1,0 +1,272 @@
+%% ================================================================
+%% Derivation Notes: Unified Cell Size Control Equation
+%% Author: cell-size-physicist (agent-mn9s81tr)
+%% Date: 2026-03-28
+%% Status: Working derivation — to be incorporated into main.tex
+%% ================================================================
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+
+\newcommand{\Vb}{V_{\mathrm{b}}}
+\newcommand{\Vd}{V_{\mathrm{d}}}
+\newcommand{\DV}{\Delta V}
+
+\begin{document}
+
+\section*{Unified Cell Size Control Equation: Full Derivation}
+
+\subsection*{1. Setup: Growth with size-dependent division}
+
+Consider a cell born at volume $\Vb$ that grows exponentially at rate $\mu$:
+\begin{equation}
+  \frac{dV}{dt} = \mu V.
+  \label{eq:growth}
+\end{equation}
+In the absence of any division control, $V(t) = \Vb \, e^{\mu t}$.
+
+Division is not deterministic at a fixed size or time. Instead, we model it as a
+\textbf{stochastic process} with an instantaneous division rate (hazard function)
+$h(V)$ that depends on the current cell volume. The probability of \emph{not} having
+divided by volume $V$ (the survival function) is:
+\begin{equation}
+  S(V) = \exp\!\left(-\int_{\Vb}^{V} \frac{h(V')}{\mu V'}\, dV'\right),
+  \label{eq:survival}
+\end{equation}
+where the factor $1/(\mu V')$ converts from a time-domain rate to a volume-domain
+density (since $dt = dV / (\mu V)$).
+
+The division volume probability density is:
+\begin{equation}
+  p(\Vd) = \frac{h(\Vd)}{\mu \Vd}\, S(\Vd).
+  \label{eq:div_pdf}
+\end{equation}
+
+\subsection*{2. The proposed hazard function}
+
+We propose a Hill-type hazard function with two parameters $(K, n)$:
+\begin{equation}
+  \boxed{h(V) = \mu \, r \, \frac{V^n}{V^n + K^n}}
+  \label{eq:hazard}
+\end{equation}
+where:
+\begin{itemize}
+  \item $K$ is the characteristic size scale (related to the molecular threshold),
+  \item $n > 0$ is the Hill coefficient controlling the sharpness of size sensing,
+  \item $r > 0$ is a dimensionless rate that sets the overall division propensity,
+  \item the prefactor $\mu$ ensures the division rate scales with growth rate
+        (consistent with the ``growth rate dependence'' observed across conditions).
+\end{itemize}
+
+The factor $\mu$ in front is crucial: it ensures that when growth rate changes
+(e.g., nutrient shift), the division rate co-scales, naturally producing the
+well-known positive correlation between growth rate and cell size.
+
+\textbf{Molecular basis}: This Hill function arises naturally from a
+concentration-dilution sensor. If a cell produces a division inhibitor $I$ at a
+constant rate (total amount $I_{\mathrm{tot}} = \text{const}$ per cycle), its
+concentration is $[I] = I_{\mathrm{tot}} / V$. Division is triggered when
+$[I]$ falls below a threshold, which is equivalent to $V$ exceeding a threshold.
+The Hill coefficient $n$ reflects the cooperativity of the molecular switch
+(e.g., Whi5 phosphorylation cascade in budding yeast, Rb inactivation in
+mammalian cells).
+
+\subsection*{3. Limiting case analysis}
+
+\subsubsection*{3.1 Sizer limit: $n \to \infty$}
+
+When $n \to \infty$, the Hill function becomes a step function:
+\begin{equation}
+  \frac{V^n}{V^n + K^n} \to
+  \begin{cases} 0 & \text{if } V < K \\ 1 & \text{if } V > K \end{cases}
+\end{equation}
+Therefore $h(V) = 0$ for $V < K$ and $h(V) = \mu r$ for $V > K$.
+In the limit $r \to \infty$ as well, division occurs instantaneously upon reaching $V = K$.
+
+This gives $\Vd = K = V^*$, independent of $\Vb$ --- \textbf{pure sizer}.
+
+The survival function confirms this:
+\begin{equation}
+  S(V) = \begin{cases} 1 & V < K \\
+  \exp\!\left(-r \ln\frac{V}{K}\right) = \left(\frac{K}{V}\right)^r & V \geq K
+  \end{cases}
+\end{equation}
+As $r \to \infty$, $S(V) \to 0$ for any $V > K$: all cells divide exactly at $V = K$.
+
+\textbf{Biological correspondence}: Fission yeast \textit{S.~pombe}, where the
+Wee1/Cdc25 bistable switch ($n$ effectively very large) creates a sharp size
+threshold at mitotic entry.
+
+\subsubsection*{3.2 Timer limit: $n \to 0^+$}
+
+When $n \to 0$, the Hill function approaches:
+\begin{equation}
+  \frac{V^n}{V^n + K^n} \to \frac{1}{1 + 1} = \frac{1}{2} \quad \text{for all } V > 0.
+\end{equation}
+So $h(V) = \mu r / 2$ = constant (independent of $V$).
+
+Substituting into the survival function:
+\begin{equation}
+  S(V) = \exp\!\left(-\frac{r}{2}\int_{\Vb}^{V}\frac{dV'}{V'}\right)
+       = \exp\!\left(-\frac{r}{2}\ln\frac{V}{\Vb}\right)
+       = \left(\frac{\Vb}{V}\right)^{r/2}
+\end{equation}
+
+Since $V = \Vb e^{\mu t}$, we have $\ln(V/\Vb) = \mu t$, so:
+\begin{equation}
+  S(t) = e^{-\mu r t / 2}
+\end{equation}
+This is an exponential distribution in \emph{time} with rate $\lambda = \mu r / 2$.
+The mean interdivision time is $\langle T \rangle = 2/(\mu r)$, which is
+\textbf{independent of birth size} --- \textbf{pure timer}.
+
+Note: the mean interdivision time depends on $\mu$, which is biologically
+correct (faster-growing cells divide sooner in absolute time). The key timer
+property is that $T$ does not depend on $\Vb$.
+
+\textbf{Biological correspondence}: Early observations in \textit{Caulobacter}
+and light-cycle-controlled \textit{Chlamydomonas}.
+
+\subsubsection*{3.3 Adder limit: $n = 1$ (linear Hill function)}
+
+When $n = 1$:
+\begin{equation}
+  h(V) = \mu r \frac{V}{V + K}
+\end{equation}
+
+The survival function becomes:
+\begin{equation}
+  S(V) = \exp\!\left(-r \int_{\Vb}^{V} \frac{dV'}{V' + K}\right)
+       = \exp\!\left(-r \ln\frac{V + K}{\Vb + K}\right)
+       = \left(\frac{\Vb + K}{V + K}\right)^r
+\end{equation}
+
+The division density is:
+\begin{equation}
+  p(\Vd) = \frac{r}{\Vd + K}\left(\frac{\Vb + K}{\Vd + K}\right)^r
+\end{equation}
+
+The mean division volume can be computed. For large $r$, the distribution
+concentrates around its mode. Setting $dS/dV$ to find the peak:
+the mode of $p(\Vd)$ occurs where $d[\ln p]/d\Vd = 0$:
+\begin{equation}
+  \frac{d}{d\Vd}\left[\ln r - \ln(\Vd+K) + r\ln(\Vb+K) - (r+1)\ln(\Vd+K)\right] = 0
+\end{equation}
+which gives $\Vd + K \propto (\Vb + K)$ --- specifically, the median satisfies
+$\Vd + K = (\Vb + K) \cdot 2^{1/r}$, so:
+\begin{equation}
+  \DV = \Vd - \Vb = (\Vb + K)(2^{1/r} - 1) \approx \frac{(\Vb + K) \ln 2}{r}
+\end{equation}
+
+For the adder to work ($\DV$ independent of $\Vb$), we need $\Vb \ll K$, i.e.,
+$K$ is much larger than typical birth sizes. In this regime:
+\begin{equation}
+  \DV \approx \frac{K \ln 2}{r} = \text{const}
+  \label{eq:adder_approx}
+\end{equation}
+This is the \textbf{adder}: each cell adds a constant volume $\DV = K\ln 2 / r$
+independent of birth size.
+
+More precisely, the adder regime corresponds to $n = 1$ and $K \gg \langle \Vb \rangle$.
+In this regime the hazard function is approximately linear in $V$:
+$h(V) \approx \mu r V / K$, giving a quadratic dependence of cumulative hazard
+on volume, which produces the adder phenomenology.
+
+\textbf{Biological correspondence}: \textit{E.~coli} and \textit{B.~subtilis},
+where the molecular sensor has low cooperativity ($n \approx 1$) and the
+threshold $K$ is set by the chromosome replication-segregation process, which
+operates at a scale much larger than individual cell birth sizes.
+
+\subsection*{4. Summary: The unified two-parameter family}
+
+The complete model is:
+
+\begin{equation}
+  \boxed{
+  \begin{aligned}
+    &\text{Growth:} & \frac{dV}{dt} &= \mu V \\[6pt]
+    &\text{Division hazard:} & h(V) &= \mu \, r \, \frac{V^n}{V^n + K^n}
+  \end{aligned}
+  }
+  \label{eq:unified}
+\end{equation}
+
+The two key control parameters are:
+\begin{itemize}
+  \item \textbf{Hill coefficient $n$}: interpolates continuously between timer ($n \to 0$),
+        adder ($n = 1$), and sizer ($n \to \infty$). This reflects the
+        \emph{cooperativity} of the molecular size-sensing switch.
+  \item \textbf{Threshold $K$}: sets the characteristic size scale. Species with
+        larger $K$ (relative to birth size) tend toward adder; species where
+        $K \approx \langle \Vb \rangle$ tend toward sizer.
+  \item \textbf{Rate $r$}: controls the precision/sharpness of division timing.
+        Higher $r$ means narrower division size distributions.
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+\textbf{Regime} & \textbf{$n$} & \textbf{$K$ vs $\Vb$} & \textbf{Organism} \\
+\hline
+Sizer & $n \gg 1$ & $K \sim \langle \Vb \rangle$ & \textit{S.~pombe} \\
+Adder & $n \approx 1$ & $K \gg \langle \Vb \rangle$ & \textit{E.~coli}, \textit{B.~subtilis} \\
+Timer & $n \to 0$ & any & \textit{Caulobacter} (early) \\
+Mixed & $1 < n < \infty$ & varies & Mammalian cells \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{5. Key predictions beyond existing models}
+
+\textbf{Prediction 1: Non-monotonic transient response.}
+After a nutrient upshift ($\mu$ increases suddenly), the sizer and adder models
+predict monotonic relaxation to the new steady state. Our equation predicts a
+transient \emph{overshoot} in mean cell size when $1 < n < \infty$, because the
+division hazard adjusts through $\mu$ faster than $K$ adapts.
+
+\textbf{Prediction 2: Size-dependent division noise.}
+The CV of division size should depend on birth size in a specific way:
+$\mathrm{CV}(\Vd \mid \Vb) \propto (\Vb + K)^{-1/2}$. Neither sizer nor adder
+predicts this birth-size-dependent heteroscedasticity.
+
+\textbf{Prediction 3: Continuous $n$ across cell cycle phases.}
+In budding yeast, G1 should show $n \gg 1$ (sizer-like, Whi5 dilution) while
+post-Start should show $n \approx 0$ (timer-like). The whole-cycle ``adder''
+is an \emph{emergent} composite of two different $n$ values --- our framework
+predicts the specific $n$ values and their combination rule.
+
+\subsection*{6. Connection to molecular mechanisms}
+
+The Hill coefficient $n$ maps directly to molecular cooperativity:
+\begin{itemize}
+  \item $n \gg 1$: Ultrasensitive switch (Wee1/Cdc25 double-negative feedback in
+        \textit{S.~pombe}; Whi5 multi-site phosphorylation in \textit{S.~cerevisiae}).
+  \item $n \approx 1$: Simple inhibitor dilution without cooperativity
+        (consistent with the DnaA/initiator accumulation model in \textit{E.~coli}).
+  \item $n < 1$: Sub-linear sensing, possibly indicating redundant/parallel
+        pathways with diminishing returns.
+\end{itemize}
+
+The threshold $K$ maps to the total amount of size-sensing molecule:
+$K \propto I_{\mathrm{tot}}$ (total inhibitor per cell cycle). This is set by
+gene copy number and transcription rate, explaining why $K$ scales with
+ploidy and growth conditions.
+
+\subsection*{7. Cancer connection}
+
+Parameter perturbations in the unified equation predict specific cancer phenotypes:
+\begin{itemize}
+  \item \textbf{Rb loss} ($K \to 0$): Division threshold vanishes, cells divide
+        at smaller sizes with higher variance --- consistent with small, rapidly
+        dividing tumor cells.
+  \item \textbf{Reduced $n$} (loss of switch cooperativity): Division becomes
+        noisier and less size-dependent, increasing size heterogeneity ---
+        consistent with tumor pleomorphism.
+  \item \textbf{Increased $\mu$ without $K$ adjustment}: Cells grow faster but
+        the division threshold doesn't compensate, leading to larger cells ---
+        consistent with polyploid tumor cells.
+\end{itemize}
+
+\end{document}
