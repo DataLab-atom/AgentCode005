@@ -1,0 +1,389 @@
+% Supplementary Information for Nature submission
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{siunitx}
+
+\doublespacing
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\newcommand{\Vbirth}{V_{\text{birth}}}
+\newcommand{\Vdiv}{V_{\text{division}}}
+\newcommand{\DeltaV}{\Delta V}
+\newcommand{\Vstar}{V^{*}}
+\newcommand{\Ecoli}{\textit{E.~coli}}
+\newcommand{\Spombe}{\textit{S.~pombe}}
+\newcommand{\Scerevisiae}{\textit{S.~cerevisiae}}
+\newcommand{\Bsubtilis}{\textit{B.~subtilis}}
+
+\title{\textbf{Supplementary Information}\\[0.5em]
+A unified control equation for cell size homeostasis across domains of life}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{First-principles derivation of the Hill-type hazard function}
+\label{sec:derivation}
+
+% TODO: Full derivation by cell-size-physicist (agent-mna1ruix)
+% Content available in paper/rigorous_derivation.tex on agent/cell-size-physicist branch
+
+\section{Existence and uniqueness of the steady-state size distribution}
+\label{sec:steadystate}
+
+% TODO: Banach fixed-point proof by cell-size-physicist (agent-mna1ruix)
+% Content available in paper/rigorous_derivation.tex
+
+\section{Complete cross-species fitting results}
+\label{sec:crossspecies}
+
+\subsection{Data sources and preprocessing}
+
+We used published single-cell division data from five species spanning
+three domains of life.  Table~\ref{tab:datasets} summarises the datasets
+employed.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Table S1 $|$ Single-cell datasets used in this study.}}
+\small
+\begin{tabular}{llllll}
+\toprule
+\textbf{Species} & \textbf{Source} & \textbf{Method} & \textbf{Variables}
+  & \textbf{Scale} & \textbf{Access} \\
+\midrule
+\Ecoli{}
+  & Taheri-Araghi 2015
+  & Mother machine
+  & $L_b$, $L_d$, $\mu$
+  & $>10^5$ cycles
+  & Suppl.\ Table S1 \\
+\Ecoli{}
+  & Si et al.\ 2019
+  & Mother machine
+  & $L_b$, $L_d$, $\mu$, DnaA
+  & $>10^5$ cycles
+  & Suppl.\ Data \\
+\Bsubtilis{}
+  & Taheri-Araghi 2015
+  & Mother machine
+  & $L_b$, $L_d$
+  & $>10^4$ cycles
+  & Suppl.\ Table S1 \\
+\Spombe{}
+  & Facchetti et al.\ 2019
+  & Time-lapse
+  & $L_b$, $L_d$
+  & $\sim10^3$ cycles
+  & Suppl.\ Data \\
+\Scerevisiae{}
+  & Soifer et al.\ 2016
+  & Microfluidic
+  & $V_b$, $V_d$ (fL)
+  & $10^3$--$10^4$ cycles
+  & Suppl.\ Data \\
+HeLa
+  & Cadart et al.\ 2018
+  & FXm
+  & $V_b$, $V_d$ (pL)
+  & $10^2$--$10^3$/line
+  & figshare \\
+RPE-1
+  & Zatulovskiy 2020
+  & Microscopy
+  & Rb conc.\ + size
+  & $10^2$--$10^3$
+  & Suppl.\ Data \\
+\bottomrule
+\end{tabular}
+\label{tab:datasets}
+\end{table}
+
+\textbf{Volume conversion for rod-shaped bacteria.}
+Cell length measurements for \Ecoli{} and \Bsubtilis{} were converted to
+volume assuming cylindrical geometry with hemispherical caps:
+\begin{equation}
+  V = \frac{\pi}{4} w^2 \left(L - \frac{w}{3}\right)
+  \label{eq:vol_conversion}
+\end{equation}
+where $w$ is the cell width ($\approx 0.9$--$1.0$ \si{\micro\metre} for
+\Ecoli{}, varying with growth condition).
+For \Spombe{}, which grows as a cylinder with constant diameter
+$d \approx 3.5$ \si{\micro\metre}:
+\begin{equation}
+  V = \frac{\pi}{4} d^2 L
+\end{equation}
+\Scerevisiae{} and mammalian cell volumes were measured directly (in fL
+and pL, respectively) and required no conversion.
+
+\textbf{Outlier removal.}
+Cells with birth or division volumes beyond 3 standard deviations from
+the population mean were excluded ($<1\%$ of data in all cases).
+Cells with negative or zero growth rates were also excluded.
+
+\subsection{Fitted parameters across all species and conditions}
+
+Table~\ref{tab:allparams} presents the complete MCMC parameter
+estimates for all species.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Table S2 $|$ Complete MCMC parameter estimates.}
+Median and 95\% credible intervals from MCMC posterior distributions.}
+\small
+\begin{tabular}{lcccl}
+\toprule
+\textbf{Species} & $n$ [95\% CI] & $K$ [95\% CI] & $r$ [95\% CI]
+  & \textbf{Regime} \\
+\midrule
+\Ecoli{}
+  & 1.37 [0.98, 1.93]
+  & 17.8 [9.3, 73.8]
+  & 5.18 [3.2, 12.9]
+  & Adder \\
+\Bsubtilis{}
+  & 1.52 [0.91, 2.29]
+  & 10.0 [6.9, 22.6]
+  & 2.75 [2.2, 4.2]
+  & Adder \\
+\Spombe{}
+  & 14.0 [12.5, 15.8]
+  & 2.62 [2.48, 2.84]
+  & 47.5 [29.5, 95.9]
+  & Sizer \\
+\Scerevisiae{}
+  & 2.78 [2.20, 3.48]
+  & 5.48 [4.1, 10.2]
+  & 8.36 [5.4, 21.2]
+  & Mixed \\
+HeLa
+  & 1.68 [1.00, 2.64]
+  & 7.78 [5.3, 20.5]
+  & 3.04 [2.3, 5.3]
+  & Mixed \\
+\bottomrule
+\end{tabular}
+\label{tab:allparams}
+\end{table}
+
+\subsection{Biological interpretation of fitted parameters}
+
+The fitted parameters are consistent with known molecular mechanisms
+in each organism:
+
+\textbf{\Ecoli{} and \Bsubtilis{} ($n \approx 1$--$1.5$, adder).}
+The low Hill coefficient reflects the simple, non-cooperative nature
+of the DnaA initiator accumulation mechanism.  DnaA protein
+accumulates linearly with cell growth until reaching a threshold
+concentration that triggers chromosome replication initiation.  The
+lack of cooperative binding ($n \approx 1$) produces a gradual,
+linear hazard function $h(V) \approx \mu r V/K$, which generates
+the adder phenomenology when $K \gg \langle\Vbirth\rangle$.
+The large $K/\langle\Vbirth\rangle$ ratio ($\sim 8$--$18$) is
+consistent with the observation that the replication-segregation
+threshold operates at a scale much larger than individual cell
+birth sizes.
+
+\textbf{\Spombe{} ($n \approx 14$, sizer).}
+The large Hill coefficient reflects the ultrasensitive Wee1/Cdc25
+double-negative feedback loop that creates a bistable switch at
+mitotic entry.  This molecular circuit exhibits switch-like
+behaviour with effective cooperativity $n \gg 1$, producing a
+near-step-function hazard at $V \approx K$.  The fitted
+$K/\langle\Vbirth\rangle \approx 1.1$ confirms that the division
+threshold is close to the typical birth size, as expected for a
+sizer mechanism.  The high $r$ value ($\sim 47$) reflects the
+precision of division timing in fission yeast, where the
+coefficient of variation of division size is characteristically
+small ($\text{CV} \approx 0.06$--$0.08$).
+
+\textbf{\Scerevisiae{} ($n \approx 2.8$, mixed).}
+The intermediate Hill coefficient is consistent with the known
+cell cycle structure of budding yeast: a G1 phase governed by
+Whi5 dilution (moderate cooperativity from multi-site
+phosphorylation by Cln3--CDK at $\sim$12 sites) followed by a
+post-Start phase that operates largely as a timer.  The emergent
+whole-cycle behaviour is a composite of these two phases, yielding
+an effective $n$ between the sizer-like G1 ($n \gg 1$) and
+timer-like post-Start ($n \approx 0$).
+
+\textbf{HeLa ($n \approx 1.7$, mixed).}
+The mammalian Hill coefficient reflects moderate cooperativity in
+the Rb--CDK4/6--CyclinD network.  Rb inactivation involves
+sequential phosphorylation at $\sim$14 sites by CDK4/6 and CDK2,
+but the two-step nature of the process (mono- then
+hyper-phosphorylation) reduces the effective cooperativity below
+the total number of sites.  The fitted $n \approx 1.7$ places
+mammalian cells in the ``mixed'' regime between pure adder and
+sizer, consistent with the observation that mammalian size control
+involves both growth rate modulation and cell cycle duration
+adjustment.
+
+\section{Asymptotic analysis of limiting cases}
+\label{sec:asymptotics}
+
+% TODO: Rigorous proofs by cell-size-physicist (agent-mna1ruix)
+% Sizer limit (n→∞): Theorem with error bound σ(Vd) = O(K/(n√r))
+% Timer limit (n→0): Theorem with correction O(n)
+% Adder limit (n=1, K≫Vb): Theorem with relative deviation ~Vb/K
+
+\section{Novel predictions: detailed derivations}
+\label{sec:predictions}
+
+% TODO: Detailed derivations by cell-size-physicist (agent-mna1ruix)
+% Prediction 1: Transient overshoot condition τ_K > (1/μ₂)·(n/r)·K₂/(K₂-K₁)
+% Prediction 2: CV(Vd|Vb) ∝ (Vb^n + K^n)^{-1/(2n)}
+% Prediction 3: Phase composition rule α_eff = α₁·α₂
+
+\section{Population-level dynamics}
+\label{sec:population}
+
+% TODO: Structured population equation / Fokker-Planck by cell-size-physicist
+
+\section{Cancer parameter perturbation analysis}
+\label{sec:cancer}
+
+Table~\ref{tab:cancer} summarises the predicted effects of
+oncogenic mutations mapped onto parameter perturbations in
+the unified equation.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Table S3 $|$ Cancer-associated parameter perturbations
+and predicted size phenotypes.}}
+\small
+\begin{tabular}{p{3cm}p{2cm}p{4.5cm}p{4cm}}
+\toprule
+\textbf{Oncogenic event} & \textbf{Parameter} & \textbf{Predicted phenotype}
+  & \textbf{Experimental evidence} \\
+\midrule
+RB1 homozygous deletion
+  & $K \to 0$
+  & G1 checkpoint loss; cells divide at smaller volumes with
+    increased size variance ($\text{CV} \propto K^{-1/2}$)
+  & Zatulovskiy et al.\ 2020; small-cell lung carcinoma;
+    retinoblastoma \\
+\addlinespace
+CDK/Cyclin dysregulation (loss of multi-site phosphorylation)
+  & $n \downarrow$
+  & Weakened size-dependent feedback; broader size distribution;
+    tumour pleomorphism
+  & Histological grading correlates with size heterogeneity \\
+\addlinespace
+PTEN loss / PIK3CA GOF (mTOR hyperactivation)
+  & $\mu \uparrow$, $K$ fixed
+  & Cells overshoot target size; eventual osmotic and
+    replication stress $\to$ senescence or adaptation
+  & Neurohr et al.\ 2019; Crozier et al.\ 2023 \\
+\addlinespace
+CDK4/6 inhibitor therapy (palbociclib)
+  & $r \downarrow$
+  & Progressive cell enlargement;
+    $\langle V_d \rangle \propto K \cdot r^{-1/n}$;
+    senescence at extreme sizes
+  & Crozier et al.\ 2023: CDK4/6i causes overgrowth-induced
+    senescence \\
+\addlinespace
+CCND1 amplification / CDK4 amplification
+  & $r \uparrow$
+  & Shortened G1; cells divide at smaller sizes;
+    accelerated proliferation
+  & Common in breast cancer, glioblastoma \\
+\addlinespace
+Whi5/Rb dosage change (epigenetic)
+  & $K$ shift
+  & Size set-point drift proportional to $I_{\text{tot}}$
+  & Schmoller et al.\ 2015: Whi5 dosage directly controls
+    cell size \\
+\bottomrule
+\end{tabular}
+\label{tab:cancer}
+\end{table}
+
+\section{Comparison with existing theoretical frameworks}
+\label{sec:comparison}
+
+Table~\ref{tab:comparison} compares the unified equation with
+the six most closely related theoretical frameworks published
+between 2014 and 2026.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Table S4 $|$ Comparison with existing theoretical
+frameworks.}}
+\small
+\begin{tabular}{p{3cm}p{2.5cm}p{4cm}p{4cm}}
+\toprule
+\textbf{Framework} & \textbf{Authors} & \textbf{Approach}
+  & \textbf{Limitations vs.\ this work} \\
+\midrule
+Linear interpolation $\alpha$-parameter
+  & Amir 2014
+  & Discrete map: $V_d = (1-\alpha)V^* + \alpha V_b$
+  & $\alpha$ assumed constant; discrete map not continuous
+    dynamics; cannot handle nonlinear behaviour \\
+\addlinespace
+Nonlinear memory SDE
+  & Zhang, Fei \& Dunkel 2025
+  & SDE + Poisson jump process
+  & Inference framework, not closed-form equation;
+    no cross-species unification \\
+\addlinespace
+Stochastic maps
+  & Genthon \& Thomas 2026
+  & Two random maps unifying phenomenological models
+  & Phenomenological; no molecular mechanism connection \\
+\addlinespace
+PDE boundary conditions
+  & Fan \& Lei 2025
+  & PDE with different boundary conditions
+  & Three controls as different boundary conditions,
+    not limits of one equation \\
+\addlinespace
+Effective potential
+  & Kessler \& Burov 2017
+  & Steady-state distribution analysis
+  & No functional form for the dynamical equation \\
+\addlinespace
+Stochastic threshold
+  & Luo, Bai \& Fu 2022
+  & First-passage-time problem
+  & Explains apparent strategy transitions but no
+    unified equation \\
+\bottomrule
+\end{tabular}
+\label{tab:comparison}
+\end{table}
+
+The key distinguishing feature of our framework is that a
+\emph{single} Hill-type hazard function with two control
+parameters ($n$, $K$) analytically recovers all three classical
+models as limiting cases, connects directly to conserved molecular
+mechanisms (concentration-dilution sensing), and generates
+falsifiable predictions that none of the above frameworks can make.
+
+\section{Supplementary Figures}
+
+% TODO: Supplementary figures by BioPlotAnalyst (agent-mna1u6gn)
+
+\end{document}
