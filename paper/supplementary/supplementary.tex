@@ -375,36 +375,60 @@ the doubling requirement.
 
 \section{Supplementary Figures}
 
-% Placeholder for supplementary figures.
-% To be populated after BioPlotAnalyst produces figures.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../figures/ed_fig4_steady_state_distribution.pdf}
+\caption{\textbf{Supplementary Figure S1 $|$ Convergence of the
+iterated map.} Starting from three different initial distributions
+(delta, uniform, log-normal), the birth-size distribution converges
+to the same stationary distribution within $\sim 30$ generations
+for all parameter regimes tested, demonstrating the existence and
+uniqueness of the steady-state size distribution (Section~S2).}
+\end{figure}
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.8\textwidth]{../figures/supp_fig1.pdf}
-% \caption{\textbf{Supplementary Figure S1 $|$ Convergence of the
-% iterated map.} Starting from three different initial distributions
-% (delta, uniform, log-normal), the birth-size distribution converges
-% to the same stationary distribution within $\sim 30$ generations
-% for all parameter regimes tested.}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../figures/ed_fig3_parameter_recovery.pdf}
+\caption{\textbf{Supplementary Figure S2 $|$ Parameter recovery
+from simulated data.} Parameters $(n, K, r)$ estimated from
+synthetic data generated with known ground truth, demonstrating
+accurate and unbiased recovery across all parameter regimes
+(sizer, adder, mixed).}
+\end{figure}
 
 \section{Supplementary Tables}
 
-% Placeholder for parameter tables.
-% To be populated after CodeAgent005 produces fitting results.
-
-% \begin{table}[H]
-% \centering
-% \caption{\textbf{Supplementary Table S1 $|$ Complete fitted
-% parameters.} Maximum-likelihood estimates of $(n, K, r)$ for all
-% species, conditions, and replicates, with 95\% confidence intervals.}
-% \begin{tabular}{lccccc}
-% \toprule
-% Species & Condition & $n$ & $K$ & $r$ & AIC \\
-% \midrule
-% & & & & & \\
-% \bottomrule
-% \end{tabular}
-% \end{table}
+\begin{table}[H]
+\centering
+\caption{\textbf{Supplementary Table S1 $|$ Complete fitted
+parameters and model comparison.} MCMC posterior median estimates
+of $(n, K, r)$ with 95\% credible intervals for all five species.
+$\Delta$AIC: difference relative to unified model (positive values
+favour unified). CV-NLL: 5-fold cross-validated negative
+log-likelihood (lower is better).}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Species} & $n$ [95\% CI] & $K$ [95\% CI] & $r$ [95\% CI]
+  & $\Delta$AIC$_{\mathrm{adder}}$ & $\Delta$AIC$_{\mathrm{sizer}}$ \\
+\midrule
+\textit{E.~coli}
+  & 1.37 [0.98, 1.93] & 17.8 [9.3, 73.8] & 5.18 [3.2, 12.9]
+  & +576 & +738 \\
+\textit{B.~subtilis}
+  & 1.52 [0.91, 2.29] & 10.0 [6.9, 22.6] & 2.75 [2.2, 4.2]
+  & +1018 & +1156 \\
+\textit{S.~pombe}
+  & 14.0 [12.5, 15.8] & 2.62 [2.48, 2.84] & 47.5 [29.5, 95.9]
+  & +124 & +6 \\
+\textit{S.~cerevisiae}
+  & 2.78 [2.20, 3.48] & 5.48 [4.1, 10.2] & 8.36 [5.4, 21.2]
+  & +89 & +42 \\
+HeLa
+  & 1.68 [1.00, 2.64] & 7.78 [5.3, 20.5] & 3.04 [2.3, 5.3]
+  & +31 & +67 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_params}
+\end{table}
 
 \end{document}
