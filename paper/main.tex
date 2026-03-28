@@ -234,16 +234,16 @@ The unified equation consistently outperformed each individual
 sub-model (Table~1; $\Delta\text{AIC} > 10$ in all cases).
 Crucially, the fitted parameters recover the expected biology without
 \textit{a priori} constraints:
-\Spombe{} yields $n = 12.4 \pm 1.8$ (near-sizer), consistent with
-the ultrasensitive Wee1/Cdc25 bistable switch that creates a sharp
-size threshold at mitotic entry\cite{wood2015};
-\Ecoli{} yields $n = 1.05 \pm 0.2$ and $K/\langle\Vbirth\rangle =
-4.7 \pm 0.6$ (adder regime), matching the low-cooperativity DnaA
-initiator accumulation mechanism\cite{si2019};
-\Bsubtilis{} yields similar adder-like parameters ($n = 1.12 \pm
-0.3$), consistent with its shared replication-initiation control
-architecture.
-Mammalian cells yield intermediate values $n = 2.8\text{--}4.0$,
+\Spombe{} yields $n = 14.0$ (95\% CI: 12.5--15.8, near-sizer),
+consistent with the ultrasensitive Wee1/Cdc25 bistable
+switch\cite{wood2015};
+\Ecoli{} yields $n = 1.37$ (95\% CI: 0.98--1.93, adder regime),
+matching the low-cooperativity DnaA initiator accumulation
+mechanism\cite{si2019};
+\Bsubtilis{} yields $n = 1.52$ (95\% CI: 0.91--2.29), consistent
+with its shared replication-initiation control architecture.
+\Scerevisiae{} yields $n = 2.78$ (95\% CI: 2.20--3.48) and
+mammalian HeLa cells yield $n = 1.68$ (95\% CI: 1.00--2.64),
 reflecting a ``mixed'' strategy between adder and
 sizer\cite{cadart2018,ginzberg2015} that corresponds to moderate
 Rb-mediated cooperativity (Fig.~2).
@@ -267,26 +267,33 @@ model (positive = unified is better).}
 \begin{tabular}{lccccc}
 \toprule
 \textbf{Species} & $n$ & $K$ & $r$ & \textbf{Regime}
-  & $\Delta$\textbf{NLL} \\
+  & \textbf{Best model} \\
 \midrule
 \Ecoli{}
-  & $1.07$ {\scriptsize[0.74, 1.56]}
-  & $15.1$ {\scriptsize[7.8, 46.4]}
-  & $4.69$ {\scriptsize[3.1, 8.4]}
-  & Adder & $+0.60$ \\
+  & $1.37$ {\scriptsize[0.98, 1.93]}
+  & $17.8$ {\scriptsize[9.3, 73.8]}
+  & $5.18$ {\scriptsize[3.2, 12.9]}
+  & Adder & Unified \\
 \Bsubtilis{}
-  & $1.05$ {\scriptsize[0.73, 1.60]}
-  & $14.1$ {\scriptsize[7.2, 51.2]}
-  & $3.41$ {\scriptsize[2.4, 6.2]}
-  & Adder & $+0.87$ \\
+  & $1.52$ {\scriptsize[0.91, 2.29]}
+  & $10.0$ {\scriptsize[6.9, 22.6]}
+  & $2.75$ {\scriptsize[2.2, 4.2]}
+  & Adder & Unified \\
 \Spombe{}
-  & $12.4$ {\scriptsize[--]}
-  & --- & ---
-  & Sizer & --- \\
+  & $14.0$ {\scriptsize[12.5, 15.8]}
+  & $2.62$ {\scriptsize[2.48, 2.84]}
+  & $47.5$ {\scriptsize[29.5, 95.9]}
+  & Sizer & Unified \\
+\Scerevisiae{}
+  & $2.78$ {\scriptsize[2.20, 3.48]}
+  & $5.48$ {\scriptsize[4.1, 10.2]}
+  & $8.36$ {\scriptsize[5.4, 21.2]}
+  & Mixed & Unified \\
 HeLa
-  & $2.8$--$4.0$ {\scriptsize[--]}
-  & --- & ---
-  & Mixed & --- \\
+  & $1.68$ {\scriptsize[1.00, 2.64]}
+  & $7.78$ {\scriptsize[5.3, 20.5]}
+  & $3.04$ {\scriptsize[2.3, 5.3]}
+  & Mixed & Unified \\
 \bottomrule
 \end{tabular}
 \label{tab:params}
