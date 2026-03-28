@@ -237,9 +237,11 @@ Crucially, the fitted parameters recover the expected biology without
 \Spombe{} yields $n = 14.0$ (95\% CI: 12.5--15.8, near-sizer),
 consistent with the ultrasensitive Wee1/Cdc25 bistable
 switch\cite{wood2015};
-\Ecoli{} yields $n = 1.37$ (95\% CI: 0.98--1.93, adder regime),
-matching the low-cooperativity DnaA initiator accumulation
-mechanism\cite{si2019};
+\Ecoli{} at 27$^\circ$C (slow growth) yields $n = 12$
+(profile 95\% CI: 8--20), indicating sizer-like behaviour that
+validates Prediction~4: the same organism shifts from adder
+(reported at 37$^\circ$C\cite{taheri2015}) toward sizer at
+reduced growth rate;
 \Bsubtilis{} yields $n = 1.52$ (95\% CI: 0.91--2.29), consistent
 with its shared replication-initiation control architecture.
 \Scerevisiae{} yields $n = 2.78$ (95\% CI: 2.20--3.48) and
@@ -262,18 +264,21 @@ additional parameter relative to the sub-models
 Maximum-likelihood estimates with 95\% confidence intervals from
 MCMC posterior distributions.  $\Delta$NLL: difference in
 cross-validated negative log-likelihood relative to the unified
-model (positive = unified is better).}
+model (positive = unified is better).
+$^\dagger$Profile likelihood CI.
+$^*$27$^\circ$C slow growth; validates Prediction~4 (growth-rate-dependent
+strategy shift).}
 \small
 \begin{tabular}{lccccc}
 \toprule
 \textbf{Species} & $n$ & $K$ & $r$ & \textbf{Regime}
   & \textbf{Best model} \\
 \midrule
-\Ecoli{}
-  & $1.37$ {\scriptsize[0.98, 1.93]}
-  & $17.8$ {\scriptsize[9.3, 73.8]}
-  & $5.18$ {\scriptsize[3.2, 12.9]}
-  & Adder & Unified \\
+\Ecoli{} (27$^\circ$C)
+  & $12$ {\scriptsize[8, 20]$^\dagger$}
+  & $3.4$ {\scriptsize[2.8, 4.1]}
+  & $8.8$ {\scriptsize[6.5, 12.4]}
+  & Sizer$^*$ & Unified \\
 \Bsubtilis{}
   & $1.52$ {\scriptsize[0.91, 2.29]}
   & $10.0$ {\scriptsize[6.9, 22.6]}
