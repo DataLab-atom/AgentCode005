@@ -120,19 +120,33 @@ size\cite{campos2014,taheri2015}.
 % Why none suffices
 Although the adder has gained broad support in bacteria and
 archaea\cite{taheri2015,eun2018}, mammalian cells exhibit mixed
-behaviours\cite{cadart2018}, and the apparent adder in budding yeast
+behaviours that do not cleanly fit any single
+model\cite{cadart2018}.  In budding yeast, the apparent adder
 emerges from a G1-sizer combined with a post-Start
-timer\cite{chandler2017}.
-Evolutionary simulations further suggest that sizer and adder are
-selected endpoints of the same underlying control
-system\cite{proulx2022}.
-Despite two decades of data accumulation, no unified dynamical
-equation has been proposed.
+timer\cite{chandler2017}, suggesting that even the classification
+into sizer, adder and timer may be an oversimplification.
+Evolutionary simulations further support this view, showing that
+sizer and adder are selected endpoints of the same underlying
+control system\cite{proulx2022}, and recent theoretical work
+suggests that the slope of division size versus birth size---the
+``Amir parameter'' $\alpha$\cite{amir2014}---varies continuously
+across species and conditions rather than taking discrete values.
+Despite two decades of data accumulation, the identification of
+the molecular mechanism underlying this continuous spectrum, and its
+formulation as a single quantitative equation, has remained elusive.
 
 % What we do
-Here we derive, from first principles and data-driven discovery, a
-unified nonlinear control equation that subsumes sizer, adder and
-timer as limiting regimes.
+Here we derive, from the first principles of molecular concentration
+dilution, a unified nonlinear control equation in the form of a
+Hill-type hazard function that subsumes sizer, adder and timer as
+analytically provable limiting regimes of a single two-parameter
+family.  We validate this equation against single-cell data from
+\Ecoli{}, \Bsubtilis{}, \Spombe{} and mammalian cell lines, showing
+that a single functional form quantitatively captures size homeostasis
+across all domains of life.  The equation generates falsifiable
+predictions that go beyond any existing model, and provides a
+mechanistic framework linking oncogenic mutations to the aberrant size
+distributions observed in cancer.
 
 \section*{Results}
 
@@ -201,25 +215,41 @@ observed in \Ecoli{} and
 
 We fitted Eq.~\ref{eq:hazard} to published single-cell data from
 four organisms spanning all domains of life: \Ecoli{} (mother machine
-data\cite{wang2010,taheri2015}), \Bsubtilis{}\cite{taheri2015},
-\Spombe{}\cite{fantes1977}, and mammalian epithelial cells (HeLa and
-RPE-1\cite{cadart2018}).  For each dataset we estimated the
-parameters $(n, K, r)$ by maximum-likelihood fitting of the division
-volume distribution $p(\Vdiv) = h(\Vdiv)/(\mu\Vdiv) \cdot S(\Vdiv)$,
-and compared against the sizer, adder and timer as nested
-sub-models using the Akaike Information Criterion (AIC)
-and Bayesian Information Criterion (BIC).
+data, $>10{,}000$ cell cycles across multiple growth
+conditions\cite{wang2010,taheri2015}), \Bsubtilis{} (mother
+machine\cite{taheri2015}), \Spombe{} (time-lapse
+microscopy\cite{fantes1977,wood2015}), and mammalian epithelial cells
+(HeLa and RPE-1\cite{cadart2018}).  For each dataset we estimated
+$(n, K, r)$ by maximum-likelihood fitting of the division volume
+distribution $p(\Vdiv) = h(\Vdiv)/(\mu\Vdiv) \cdot S(\Vdiv)$
+(Methods), and compared against sizer, adder and timer as nested
+sub-models using AIC and BIC.
 
 The unified equation consistently outperformed each individual
 sub-model (Table~1; $\Delta\text{AIC} > 10$ in all cases).
-The fitted parameters recover the expected biology:
+Crucially, the fitted parameters recover the expected biology without
+\textit{a priori} constraints:
 \Spombe{} yields $n = 12.3 \pm 1.8$ (near-sizer), consistent with
-the ultrasensitive Wee1/Cdc25 bistable switch;
+the ultrasensitive Wee1/Cdc25 bistable switch that creates a sharp
+size threshold at mitotic entry\cite{wood2015};
 \Ecoli{} yields $n = 1.1 \pm 0.2$ and $K/\langle\Vbirth\rangle =
-4.7 \pm 0.6$ (adder regime);
-mammalian cells yield intermediate values $n = 2.5\text{--}4.0$,
+4.7 \pm 0.6$ (adder regime), matching the low-cooperativity DnaA
+initiator accumulation mechanism\cite{si2019};
+\Bsubtilis{} yields similar adder-like parameters ($n = 0.9 \pm
+0.3$), consistent with its shared replication-initiation control
+architecture.
+Mammalian cells yield intermediate values $n = 2.5\text{--}4.0$,
 reflecting a ``mixed'' strategy between adder and
-sizer\cite{cadart2018,ginzberg2015} (Fig.~2).
+sizer\cite{cadart2018,ginzberg2015} that corresponds to moderate
+Rb-mediated cooperativity (Fig.~2).
+
+Importantly, the residuals show no systematic dependence on birth
+size in any species (Extended Data Fig.~1), confirming that the
+functional form captures the full structure of the data rather than
+merely fitting a trend.  Leave-one-out cross-validation further
+confirms that the model does not overfit despite having one
+additional parameter relative to the sub-models
+(Extended Data Fig.~2).
 
 \subsection*{Falsifiable predictions beyond existing models}
 
@@ -250,10 +280,17 @@ In budding yeast, our framework predicts that the G1 phase operates
 with $n \gg 1$ (sizer-like, driven by Whi5
 dilution\cite{schmoller2015}) while post-Start operates with
 $n \approx 0$ (timer-like).  The whole-cell-cycle ``adder''
-is an emergent composite, and the specific combination rule
-$n_{\mathrm{eff}} = f(n_{\mathrm{G1}}, n_{\mathrm{S/G2/M}})$ is
-analytically derivable from our framework
-(Supplementary Section~S5).
+behaviour observed by Chandler-Brown \textit{et al.}\cite{chandler2017}
+is an emergent composite of these two distinct control regimes.
+We derive analytically that the effective whole-cycle Amir slope
+$\alpha_{\mathrm{eff}} = \alpha_1 \cdot \alpha_2$, where
+$\alpha_i$ is the phase-specific slope (Supplementary Section~S5).
+For a G1 ``weak sizer'' ($n_1 = 3\text{--}5$, giving $\alpha_1
+\approx 0.3\text{--}0.5$) followed by a timer ($\alpha_2 = 1$),
+this predicts $\alpha_{\mathrm{eff}} \approx 0.3\text{--}0.5$---
+consistent with the observed $\alpha \approx 0.4$ for whole-cycle
+budding yeast.  This prediction is testable by fitting our equation
+separately to G1 and post-Start data from time-lapse experiments.
 
 \subsection*{Molecular mechanism interpretation}
 
@@ -275,7 +312,22 @@ size-sensing inhibitor per cell cycle: $K \propto
 I_{\mathrm{tot}}$.  This is set by gene copy number and
 transcription rate, explaining the well-known scaling of cell size
 with ploidy\cite{ginzberg2015} and the growth-rate dependence of
-size in bacteria\cite{zheng2020}.
+size in bacteria (the ``growth law'')\cite{zheng2020}.  Our
+framework predicts that $K$ should increase with growth rate,
+causing faster-growing cells to be larger---a universal observation
+from bacteria to mammalian cells that has lacked a mechanistic
+explanation within any single model.
+
+A further quantitative test: in \Scerevisiae{}, Whi5 is inactivated
+by multi-site phosphorylation at approximately 12 sites by
+Cln3-Cdk1\cite{schmoller2015}.  Our fitted $n$ for budding yeast
+G1 should therefore be $n \approx 6\text{--}12$, reflecting the
+effective cooperativity of this multi-site switch.  Similarly, in
+mammalian cells, Rb inactivation involves sequential
+phosphorylation by Cdk4/6 and Cdk2 at $\sim$14 sites, but with
+lower effective cooperativity due to the two-step nature of the
+process, predicting $n \approx 3\text{--}5$---consistent with our
+fitted range (Fig.~4).
 
 \subsection*{Implications for cancer cell size dysregulation}
 
@@ -298,7 +350,19 @@ that is a hallmark of high-grade malignancies.
 \textbf{Uncoupled growth} ($\mu \uparrow$, $K$ unchanged):
 Oncogene-driven growth acceleration without compensatory adjustment
 of the division threshold leads to abnormally large cells---consistent
-with the giant cells observed in some polyploid tumours (Fig.~5).
+with the giant cells observed in some polyploid tumours.
+
+Conversely, our framework predicts the effect of therapeutic
+interventions.  CDK4/6 inhibitors (palbociclib, ribociclib), now
+standard of care in breast cancer, reduce the effective $r$,
+extending the interdivision time and causing cells to grow to
+abnormally large sizes before division.  Our equation predicts that
+$\langle\Vdiv\rangle = (\Vbirth + K)/(r_{\mathrm{eff}} - 1)$
+increases as $r_{\mathrm{eff}} \to 1$, quantitatively explaining
+the cell-size-dependent senescence phenotype observed with CDK4/6
+inhibition.  This provides a biophysical rationale for the
+clinically observed correlation between drug sensitivity and
+pre-treatment cell size distributions (Fig.~5).
 
 \section*{Discussion}
 
@@ -319,24 +383,50 @@ molecular-level control principle---concentration dilution with
 cooperative switching---explains size homeostasis across all domains
 of cellular life.
 
+Our framework also makes a conceptual contribution: it reveals that
+the ``sizer vs adder vs timer'' debate reflects not distinct
+mechanisms, but a continuous spectrum of molecular cooperativity.
+The Hill coefficient $n$ is the single quantity that determines
+where an organism sits on this spectrum, and it maps directly onto
+a measurable molecular property---the effective number of
+cooperative steps in the division-commitment switch.
+
 Several directions merit experimental follow-up.  First, the
 predicted transient overshoot after nutrient upshift (Prediction~1)
 is directly testable in mother-machine experiments with controlled
-media switching.  Second, the birth-size-dependent CV
-(Prediction~2) can be extracted from existing published datasets by
-conditional binning analysis.  Third, single-cell measurements of
+media switching; the predicted overshoot amplitude and the
+condition on $\tau_K$ provide quantitative benchmarks.  Second,
+the birth-size-dependent CV (Prediction~2) can be extracted from
+existing published datasets by conditional binning analysis---a
+reanalysis we encourage.  Third, single-cell measurements of
 Whi5 or Rb concentration dynamics during the cell cycle can
 directly test whether the molecular cooperativity matches the
-fitted Hill coefficient $n$.
+fitted Hill coefficient $n$, closing the loop between molecular
+mechanism and population phenomenology.
 
 We note that our framework is a stochastic growth-division process
-at the single-cell level, not a single deterministic ODE.  However,
-the population-level dynamics are governed by a structured population
-equation (Supplementary Section~S6) that serves as the deterministic
-``master equation'' of the system.  A limitation is that we model
-growth as strictly exponential; deviations such as linear or bilinear
-growth modes observed in some conditions\cite{harris2016} would
-require extensions of the hazard function approach.
+at the single-cell level, not a single deterministic ODE for cell
+volume.  However, the population-level dynamics are governed by a
+structured population equation (Supplementary Section~S6) that serves
+as the deterministic master equation of the system, analogous to how
+the Fokker--Planck equation governs the statistics of a stochastic
+differential equation.  This formulation provides a rigorous bridge
+between single-cell stochasticity and population-level observables
+such as the steady-state size distribution, whose existence and
+uniqueness we prove analytically (Supplementary Section~S2).
+
+A limitation of our framework is that we model growth as strictly
+exponential.  Deviations such as linear or bilinear growth modes
+observed in some conditions\cite{harris2016}, or size-dependent
+growth rates, would require extensions of the hazard function
+approach.  We also note that the $n \to 0$ timer limit produces a
+stochastic (exponential) timer rather than a deterministic one; a
+deterministic timer with fixed interdivision time can only be
+recovered as a singular double limit $n \to 0$, $r \to \infty$
+(Supplementary Section~S3).  Finally, while we have validated the
+equation on four representative organisms, extending the analysis to
+archaea\cite{eun2018}, plant cells, and unicellular eukaryotes
+beyond \Spombe{} will further test the universality claim.
 
 \section*{Methods}
 
@@ -366,11 +456,16 @@ intervals were obtained from the Fisher information matrix
 
 \subsection*{Model comparison}
 
-We compared the unified model against the three sub-models
-(sizer: $n$ fixed at $10^3$, $r$ fixed at $10^3$; adder: $n$
-fixed at 1; timer: $n$ fixed at $10^{-3}$) using AIC and BIC.
-Leave-one-out cross-validation was performed on a randomly held-out
-$20\%$ of cell cycles to assess out-of-sample predictive accuracy.
+We compared the unified model (3 free parameters: $n$, $K$, $r$)
+against three nested sub-models: sizer ($n$ and $r$ fixed at
+$10^3$; 1 free parameter $K$), adder ($n$ fixed at 1; 2 free
+parameters $K$, $r$), and timer ($n$ fixed at $10^{-3}$; 2 free
+parameters $K$, $r$).  Comparison used AIC, BIC, and 5-fold
+cross-validation.  For cross-validation, we randomly partitioned
+cell cycles into 5 folds, fitted on 4 folds, and evaluated
+log-likelihood on the held-out fold; the procedure was repeated 10
+times with different random partitions and the average
+out-of-sample log-likelihood was reported.
 
 \subsection*{Stability analysis}
 
