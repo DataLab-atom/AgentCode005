@@ -40,30 +40,80 @@ from unified_model import (
 # ============================================================
 # Style configuration — Nature standards
 # ============================================================
+# ── Nature house style ──────────────────────────────────────
+# Reference: https://research-figure-guide.nature.com/
+#   Font: Arial / Helvetica (sans-serif) — NOT Times
+#   Panel labels: 8 pt bold upright lowercase a, b, c …
+#   Body text: 5–7 pt (min 5, max 7)
+#   Resolution: 450 dpi
+#   Colour: RGB, colour-blind safe (Wong 2011, Nat Methods 8:441)
+#   Text colour: black only
+#   Export: PDF, TrueType 42
+# ────────────────────────────────────────────────────────────
 plt.style.use(['science', 'nature', 'no-latex'])
 plt.rcParams.update({
     'text.usetex': False,
-    'font.family': 'serif',
-    'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif'],
-    'font.size': 7,
-    'axes.labelsize': 8,
-    'axes.titlesize': 8,
-    'xtick.labelsize': 7,
-    'ytick.labelsize': 7,
-    'legend.fontsize': 6,
-    'figure.dpi': 300,
-    'savefig.dpi': 300,
+    # Fonts — Nature mandates sans-serif (Arial / Helvetica)
+    'font.family': 'sans-serif',
+    'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
+    'mathtext.fontset': 'dejavusans',
+    # Sizes — 5-7 pt body, 8 pt panel labels (handled separately)
+    'font.size': 6,
+    'axes.labelsize': 7,
+    'axes.titlesize': 7,
+    'axes.titleweight': 'bold',
+    'xtick.labelsize': 6,
+    'ytick.labelsize': 6,
+    # Legend — compact, frameless
+    'legend.fontsize': 5.5,
+    'legend.frameon': False,
+    'legend.borderpad': 0.2,
+    'legend.handlelength': 1.0,
+    'legend.handletextpad': 0.3,
+    'legend.columnspacing': 0.6,
+    'legend.labelspacing': 0.3,
+    # Figure output
+    'figure.dpi': 450,
+    'savefig.dpi': 450,
     'savefig.bbox': 'tight',
-    'savefig.pad_inches': 0.05,
-    'lines.linewidth': 0.8,
-    'axes.linewidth': 0.5,
-    'xtick.major.width': 0.5,
-    'ytick.major.width': 0.5,
-    'xtick.major.size': 3,
-    'ytick.major.size': 3,
-    'pdf.fonttype': 42,  # TrueType for Nature
+    'savefig.pad_inches': 0.02,
+    # Lines & spines
+    'lines.linewidth': 0.7,
+    'axes.linewidth': 0.4,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    # Ticks — inward, thin
+    'xtick.major.width': 0.4,
+    'ytick.major.width': 0.4,
+    'xtick.major.size': 2.5,
+    'ytick.major.size': 2.5,
+    'xtick.minor.visible': False,
+    'ytick.minor.visible': False,
+    'xtick.direction': 'in',
+    'ytick.direction': 'in',
+    'xtick.major.pad': 2,
+    'ytick.major.pad': 2,
+    # Export — TrueType embedding (Nature requirement)
+    'pdf.fonttype': 42,
     'ps.fonttype': 42,
+    # Colours
+    'axes.edgecolor': '#333333',
+    'text.color': '#000000',
+    'axes.labelcolor': '#000000',
+    'xtick.color': '#333333',
+    'ytick.color': '#333333',
 })
+
+# Nature single column = 89 mm ≈ 3.50 in; double column = 183 mm ≈ 7.20 in
+FIG_SINGLE = 3.50   # inches
+FIG_DOUBLE = 7.20   # inches
+
+
+def _panel_label(ax, label, x=-0.15, y=1.06):
+    """Nature-style panel label: 8 pt bold upright lowercase, sans-serif."""
+    ax.text(x, y, label, transform=ax.transAxes,
+            fontsize=8, fontweight='bold', va='top', ha='left',
+            fontfamily='sans-serif', color='black')
 
 # Colorblind-friendly palette (Wong 2011, Nature Methods)
 COLORS = {
@@ -211,7 +261,7 @@ def make_figure1():
     """
     print("Creating Figure 1...")
 
-    fig = plt.figure(figsize=(7.2, 2.2))  # Nature single-column ≈ 89mm, double ≈ 183mm
+    fig = plt.figure(figsize=(FIG_DOUBLE, 2.2))
     gs = gridspec.GridSpec(1, 3, width_ratios=[1, 1, 1.15], wspace=0.4)
 
     # --- Panel a: Hazard function curves ---
