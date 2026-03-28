@@ -444,7 +444,7 @@ def run_full_pipeline(
         adder = fit_pure_adder(vb, vd)
         linear = fit_linear_interpolation(vb, vd)
 
-        # R² for unified model
+        # R2 for unified model
         v_div_pred = np.array([
             predict_mean_division_size(v, mu, bayes.mle_params[0],
                                        bayes.mle_params[1], bayes.mle_params[2])
@@ -494,7 +494,7 @@ def run_full_pipeline(
         print(f"{'='*60}")
 
         # Summary table
-        print(f"\n{'Species':<15} {'n_true':>7} {'n_fit':>7} {'n_CI':>15} {'R²':>6} {'Best_CV':>10}")
+        print(f"\n{'Species':<15} {'n_true':>7} {'n_fit':>7} {'n_CI':>15} {'R2':>6} {'Best_CV':>10}")
         print("-" * 65)
         for sp, r in all_results.items():
             bf = r["bayesian_fit"]
