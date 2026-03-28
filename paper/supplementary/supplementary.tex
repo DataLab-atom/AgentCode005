@@ -431,4 +431,108 @@ HeLa
 \label{tab:supp_params}
 \end{table}
 
+\begin{table}[H]
+\centering
+\caption{\textbf{Supplementary Table S2 $|$ Single-cell datasets used
+in this study.}}
+\small
+\begin{tabular}{llllll}
+\toprule
+\textbf{Species} & \textbf{Source} & \textbf{Method} & \textbf{Variables}
+  & \textbf{Scale} & \textbf{Access} \\
+\midrule
+\textit{E.~coli}
+  & Taheri-Araghi 2015
+  & Mother machine
+  & $L_b$, $L_d$, $\mu$
+  & $>10^5$ cycles
+  & Suppl.\ Table \\
+\textit{B.~subtilis}
+  & Taheri-Araghi 2015
+  & Mother machine
+  & $L_b$, $L_d$
+  & $>10^4$ cycles
+  & Suppl.\ Table \\
+\textit{S.~pombe}
+  & Facchetti et al.\ 2019
+  & Time-lapse
+  & $L_b$, $L_d$
+  & $\sim10^3$ cycles
+  & Suppl.\ Data \\
+\textit{S.~cerevisiae}
+  & Soifer et al.\ 2016
+  & Microfluidic
+  & $V_b$, $V_d$ (fL)
+  & $10^3$--$10^4$ cycles
+  & Suppl.\ Data \\
+HeLa
+  & Cadart et al.\ 2018
+  & FXm
+  & $V_b$, $V_d$ (pL)
+  & $10^2$--$10^3$/line
+  & figshare \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Supplementary Table S3 $|$ Cancer-associated parameter
+perturbations and predicted size phenotypes.}}
+\small
+\begin{tabular}{p{2.8cm}p{1.8cm}p{4.2cm}p{3.8cm}}
+\toprule
+\textbf{Oncogenic event} & \textbf{Parameter} & \textbf{Predicted phenotype}
+  & \textbf{Experimental evidence} \\
+\midrule
+RB1 deletion & $K \to 0$ & G1 checkpoint loss; smaller cells,
+  increased CV & Zatulovskiy 2020; retinoblastoma \\
+\addlinespace
+CDK/Cyclin dysregulation & $n \downarrow$ & Weakened feedback;
+  tumour pleomorphism & Histological grade correlates with
+  size heterogeneity \\
+\addlinespace
+PTEN loss / mTOR activation & $\mu \uparrow$, $K$ fixed & Size
+  overshoot; senescence & Neurohr et al.\ 2019 \\
+\addlinespace
+CDK4/6 inhibitor & $r \downarrow$ & Progressive enlargement;
+  senescence at extreme sizes & Overgrowth-induced senescence \\
+\addlinespace
+CCND1/CDK4 amplification & $r \uparrow$ & Shortened G1; smaller
+  cells; faster proliferation & Breast cancer, glioblastoma \\
+\addlinespace
+Whi5/Rb dosage change & $K$ shift & Size set-point drift
+  $\propto I_{\mathrm{tot}}$ & Schmoller et al.\ 2015 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Supplementary Table S4 $|$ Comparison with existing
+theoretical frameworks.}}
+\small
+\begin{tabular}{p{2.5cm}p{2.2cm}p{3.5cm}p{4.2cm}}
+\toprule
+\textbf{Framework} & \textbf{Authors} & \textbf{Approach}
+  & \textbf{Limitations vs.\ this work} \\
+\midrule
+$\alpha$-parameter & Amir 2014 & Discrete map &
+  $\alpha$ constant; no nonlinear dynamics \\
+\addlinespace
+Nonlinear memory SDE & Zhang et al.\ 2025 & SDE + Poisson jumps &
+  Inference framework; no cross-species unification \\
+\addlinespace
+Stochastic maps & Genthon \& Thomas 2026 & Random maps &
+  Phenomenological; no molecular mechanism \\
+\addlinespace
+PDE boundaries & Fan \& Lei 2025 & PDE + boundary conditions &
+  Three controls as different BCs, not equation limits \\
+\addlinespace
+Stochastic threshold & Luo et al.\ 2022 & First-passage-time &
+  Explains transitions but no unified equation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \end{document}
