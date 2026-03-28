@@ -226,11 +226,9 @@ data, $>10{,}000$ cell cycles across multiple growth
 conditions\cite{wang2010,taheri2015}), \Bsubtilis{} (mother
 machine\cite{taheri2015}), \Spombe{} (time-lapse
 microscopy\cite{fantes1977,wood2015}), and mammalian epithelial cells
-(HeLa and RPE-1\cite{cadart2018}).  For each dataset we estimated
-$(n, K, r)$ by maximum-likelihood fitting of the division volume
-distribution $p(\Vdiv) = h(\Vdiv)/(\mu\Vdiv) \cdot S(\Vdiv)$
-(Methods), and compared against sizer, adder and timer as nested
-sub-models using AIC and BIC.
+(HeLa and RPE-1\cite{cadart2018}).  We estimated $(n, K, r)$ by maximum-likelihood fitting of
+$p(\Vdiv) = h(\Vdiv)/(\mu\Vdiv) \cdot S(\Vdiv)$ (Methods), and
+compared against nested sub-models using AIC and BIC.
 
 The unified equation consistently outperformed each individual
 sub-model (Table~1; $\Delta\text{AIC} > 10$ in all cases).
@@ -359,17 +357,12 @@ Oncogene-driven growth acceleration without compensatory adjustment
 of the division threshold leads to abnormally large cells---consistent
 with the giant cells observed in some polyploid tumours.
 
-Conversely, our framework predicts the effect of therapeutic
-interventions.  CDK4/6 inhibitors (palbociclib, ribociclib), now
-standard of care in breast cancer, reduce the effective $r$,
-extending the interdivision time and causing cells to grow to
-abnormally large sizes before division.  Our equation predicts that
+Conversely, CDK4/6 inhibitors (palbociclib, ribociclib) reduce
+the effective $r$, and our equation predicts
 $\langle\Vdiv\rangle = (\Vbirth + K)/(r_{\mathrm{eff}} - 1)$
 increases as $r_{\mathrm{eff}} \to 1$, quantitatively explaining
 the cell-size-dependent senescence phenotype observed with CDK4/6
-inhibition.  This provides a biophysical rationale for the
-clinically observed correlation between drug sensitivity and
-pre-treatment cell size distributions (Fig.~5).
+inhibition\cite{neurohr2019} (Fig.~5).
 
 \section*{Discussion}
 
@@ -381,14 +374,12 @@ a decade-long debate by demonstrating that the three models are not
 competing hypotheses but rather parameter regimes of a single
 underlying control architecture.
 
-The analogy to metabolic scaling laws is instructive.  Just as
-West, Brown and Enquist showed that a single framework based on
-fractal vascular networks explains the allometric scaling of
-metabolic rate across organisms spanning 27 orders of magnitude in
-body mass\cite{west1997}, our equation shows that a single
-molecular-level control principle---concentration dilution with
-cooperative switching---explains size homeostasis across all domains
-of cellular life.
+Just as West, Brown and Enquist showed that fractal vascular
+networks explain allometric scaling across 27 orders of magnitude
+in body mass\cite{west1997}, our equation shows that a single
+molecular principle---concentration dilution with cooperative
+switching---explains size homeostasis across all domains of
+cellular life.
 
 Our framework also makes a conceptual contribution: it reveals that
 the ``sizer vs adder vs timer'' debate reflects not distinct
@@ -422,18 +413,12 @@ between single-cell stochasticity and population-level observables
 such as the steady-state size distribution, whose existence and
 uniqueness we prove analytically (Supplementary Section~S2).
 
-A limitation of our framework is that we model growth as strictly
-exponential.  Deviations such as linear or bilinear growth modes
-observed in some conditions\cite{harris2016}, or size-dependent
-growth rates, would require extensions of the hazard function
-approach.  We also note that the $n \to 0$ timer limit produces a
-stochastic (exponential) timer rather than a deterministic one; a
-deterministic timer with fixed interdivision time can only be
-recovered as a singular double limit $n \to 0$, $r \to \infty$
-(Supplementary Section~S3).  Finally, while we have validated the
-equation on four representative organisms, extending the analysis to
-archaea\cite{eun2018}, plant cells, and unicellular eukaryotes
-beyond \Spombe{} will further test the universality claim.
+Limitations include the assumption of strictly exponential growth
+(deviations such as linear growth\cite{harris2016} would require
+extensions), and the fact that the $n \to 0$ timer limit is
+stochastic rather than deterministic (Supplementary Section~S3).
+Extending the analysis to archaea\cite{eun2018}, plant cells,
+and additional eukaryotes will further test universality.
 
 \section*{Methods}
 
