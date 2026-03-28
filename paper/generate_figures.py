@@ -565,19 +565,24 @@ def make_figure4():
         ax_b.plot(bin_centers, bin_cvs, '-o', color=color, markersize=2.5, lw=0.8,
                   label=f'$n={nv:.0f}$')
 
-    # Theoretical prediction from physicist's derivation:
-    # Var(Vd|Vb) ∝ (Vb+K)²/r → σ(Vd|Vb) ∝ (Vb+K)/√r
-    # CV(Vd|Vb) = σ/E[Vd] ∝ (Vb+K)/(√r · E[Vd])
-    # For adder regime E[Vd] ≈ Vb + K·ln2/r, so CV ∝ 1/√r · (Vb+K)/(Vb+K·ln2/r)
+    # Theoretical prediction from physicist's derivation (general n):
+    # Var(Vd|Vb) = (Vb^n + K^n)^(2/n) / r
+    # σ(Vd|Vb) = (Vb^n + K^n)^(1/n) / √r
+    # For n=1: σ = (Vb+K)/√r; for general n: σ = (Vb^n+K^n)^(1/n)/√r
     vb_theory = np.linspace(min(bin_centers) * 0.8, max(bin_centers) * 1.2, 100)
-    # Use the general form: σ ∝ (Vb^n + K^n)^(1/n) / √r
     K_th, r_th = 10.0, 5.0
-    sigma_theory = (vb_theory + K_th) / np.sqrt(r_th)
-    mean_theory = vb_theory + K_th * np.log(2) / r_th
-    cv_theory = sigma_theory / mean_theory
-    cv_theory = cv_theory / cv_theory[0] * bin_cvs[0]  # normalize to data
-    ax_b.plot(vb_theory, cv_theory, '--', color=COLORS['grey'], lw=0.6,
-              label='Theory: $\\sigma \\propto (V_b\\!+\\!K)/\\sqrt{r}$')
+    # Plot theory curves for each n value used in simulation
+    for nv, color in zip(n_vals_noise, colors_noise):
+        sigma_th = (vb_theory**nv + K_th**nv)**(1.0/nv) / np.sqrt(r_th)
+        mean_th = np.array([predict_mean_division_size(v, 0.01, r_th, K_th, nv)
+                            for v in vb_theory])
+        cv_th = sigma_th / mean_th
+        # Normalize to match simulation scale
+        cv_th = cv_th / cv_th[len(cv_th)//2] * bin_cvs[min(len(bin_cvs)//2, len(bin_cvs)-1)]
+        ax_b.plot(vb_theory, cv_th, '--', color=color, lw=0.5, alpha=0.6)
+    # Add legend entry for theory
+    ax_b.plot([], [], '--', color=COLORS['grey'], lw=0.6,
+              label='Theory: $(V_b^n\\!+\\!K^n)^{1/n}/\\sqrt{r}$')
 
     ax_b.set_xlabel('Birth volume $V_{\\mathrm{b}}$')
     ax_b.set_ylabel('CV$(V_{\\mathrm{d}} | V_{\\mathrm{b}})$')
