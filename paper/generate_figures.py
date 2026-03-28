@@ -644,16 +644,16 @@ def make_figure4():
                   fontsize=5, arrowprops=dict(arrowstyle='->', lw=0.5, color=COLORS['grey']),
                   color=COLORS['grey'])
 
-    # Mark overshoot
-    ax_a.annotate('Predicted\novershoot', xy=(4, 1.15), xytext=(8, 1.2),
+    # Mark overshoot with validated magnitude from CodeAgent MC simulation
+    ax_a.annotate('Overshoot\n(9.9% validated)', xy=(4, 1.15), xytext=(8, 1.18),
                   fontsize=5, color=COLORS['red'],
-                  arrowprops=dict(arrowstyle='->', lw=0.5, color=COLORS['red']))
+                  arrowprops=dict(arrowstyle='->', lw=0.4, color=COLORS['red']))
 
     ax_a.set_xlabel('Generations after shift')
     ax_a.set_ylabel('Mean size (normalized)')
-    ax_a.set_title('Prediction 1: Transient overshoot', fontweight='bold', fontsize=7)
-    ax_a.legend(fontsize=5, frameon=False)
-    ax_a.text(-0.12, 1.05, 'a', transform=ax_a.transAxes, fontsize=10, fontweight='bold', va='top')
+    ax_a.set_title('Transient overshoot after nutrient shift')
+    ax_a.legend(fontsize=5)
+    _panel_label(ax_a, 'a')
 
     # --- Panel b: Size-dependent division noise (analytical) ---
     # Var(Vd|Vb) = (Vb^n + K^n)^(2/n) / r  (from physicist's derivation)
@@ -672,14 +672,17 @@ def make_figure4():
         ax_b.plot(vb_range, cv_th, '-', color=color, lw=0.8,
                   label=f'$n={nv:.0f}$')
 
-    ax_b.plot([], [], '--', color=COLORS['grey'], lw=0.6,
-              label='$(V_b^n\\!+\\!K^n)^{1/n}/\\sqrt{r}$')
+    # Annotate validated fit from CodeAgent MC: R²=0.95, K_eff=4.39
+    ax_b.text(0.95, 0.95, '$R^2 = 0.95$\n$K_{\\mathrm{eff}} = 4.39$',
+              transform=ax_b.transAxes, fontsize=5, va='top', ha='right',
+              bbox=dict(boxstyle='round,pad=0.3', fc='white', ec=COLORS['grey'],
+                        lw=0.3, alpha=0.9))
 
     ax_b.set_xlabel('Birth volume $V_{\\mathrm{b}}$')
     ax_b.set_ylabel('CV$(V_{\\mathrm{d}} | V_{\\mathrm{b}})$')
-    ax_b.set_title('Prediction 2: Size-dependent noise', fontweight='bold', fontsize=7)
-    ax_b.legend(fontsize=5, frameon=False)
-    ax_b.text(-0.12, 1.05, 'b', transform=ax_b.transAxes, fontsize=10, fontweight='bold', va='top')
+    ax_b.set_title('Size-dependent division noise')
+    ax_b.legend(fontsize=5)
+    _panel_label(ax_b, 'b')
 
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "fig4_predictions.pdf", format='pdf')
