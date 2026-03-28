@@ -290,20 +290,44 @@ mismatch that resolves non-monotonically as $K(t) \to K_2$.
 
 \section{Phase-specific control combination rule (Prediction 3)}
 
-% TODO: Analytical derivation of n_eff from phase-specific n values.
-% To be completed with input from cell-size-physicist.
-
 For a cell cycle divided into two phases (e.g., G1 and S/G2/M), each
-governed by its own hazard function $h_1(V)$ and $h_2(V)$ with Hill
-coefficients $n_1$ and $n_2$ respectively, the whole-cycle effective
-behaviour depends on the \emph{sequential} application of the two
-hazard functions.
+governed by its own hazard function $h_i(V) = \mu r_i V^{n_i} /
+(V^{n_i} + K_i^{n_i})$, the whole-cycle effective behaviour depends
+on the sequential application of the two hazard functions.
 
-In budding yeast, the G1 phase operates as a sizer ($n_1 \gg 1$,
-driven by Whi5 dilution) and the post-Start phase as a timer
-($n_2 \approx 0$).  The composite produces approximate adder
-behaviour at the whole-cycle level, as observed by
-Chandler-Brown \textit{et al.}\cite{chandler2017}.
+The effective whole-cycle Amir slope $\alpha_{\mathrm{eff}}$
+(where $V_d = (1-\alpha)V^* + \alpha V_b + \DV$) obeys a
+multiplicative combination rule:
+\begin{equation}
+  \alpha_{\mathrm{eff}} = \alpha_1 \cdot \alpha_2
+\end{equation}
+where $\alpha_i = 1 - n_i/(r_i + n_i)$ is the phase-specific slope.
+
+\textbf{Derivation.} In phase~1, the conditional expectation of the
+transition volume $V_t$ (volume at which the cell exits phase~1) given
+birth volume $\Vb$ has the approximate form
+$\langle V_t \rangle = (1-\alpha_1) V_1^* + \alpha_1 \Vb$
+where $V_1^*$ is the phase-1 target size.  Phase~2 then acts on $V_t$
+as birth size, giving $\langle \Vd \rangle = (1-\alpha_2) V_2^* +
+\alpha_2 \langle V_t \rangle$.  Substituting:
+\begin{equation}
+  \langle \Vd \rangle = (1-\alpha_2)V_2^* + \alpha_2(1-\alpha_1)V_1^*
+    + \alpha_1 \alpha_2 \Vb
+\end{equation}
+so the whole-cycle slope is $\alpha_{\mathrm{eff}} = \alpha_1 \alpha_2$.
+
+\textbf{Application to budding yeast.}  G1 operates as a ``weak
+sizer'' with $n_1 = 3$--$5$, giving $\alpha_1 \approx 0.3$--$0.5$.
+Post-Start operates as a timer ($n_2 \to 0$, $\alpha_2 = 1$).
+Therefore $\alpha_{\mathrm{eff}} \approx 0.3$--$0.5$, consistent with
+the observed $\alpha \approx 0.4$ for whole-cycle budding
+yeast\cite{chandler2017}.
+
+For G1 pure sizer ($n_1 \gg 1 \Rightarrow \alpha_1 \to 0$) plus any
+phase~2: $\alpha_{\mathrm{eff}} \to 0$ (whole-cycle sizer).
+For both phases timer ($n_1, n_2 \to 0$):
+$\alpha_{\mathrm{eff}} = 1 \cdot 1 = 1$ (whole-cycle timer, slope 2
+in exponential growth).
 
 \section{Population-level dynamics and moment equations}
 
