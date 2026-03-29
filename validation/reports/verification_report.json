@@ -1,0 +1,35 @@
+{
+  "limiting_cases": {
+    "sizer": {
+      "slope": 0.0592,
+      "pass": true
+    },
+    "adder": {
+      "slope": -0.0586,
+      "pass": true
+    },
+    "timer": {
+      "r2": 0.0004,
+      "pass": true
+    },
+    "all_pass": true
+  },
+  "cross_species": {
+    "E_coli": {
+      "n_fit": 1.47,
+      "n_true": 1.2,
+      "unified_wins": true
+    },
+    "S_pombe": {
+      "n_fit": 15.43,
+      "n_true": 15.0,
+      "unified_wins": true
+    },
+    "S_cerevisiae": {
+      "n_fit": 3.65,
+      "n_true": 3.0,
+      "unified_wins": true
+    }
+  },
+  "overall_pass": true
+}
