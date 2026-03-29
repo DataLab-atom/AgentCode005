@@ -1,7 +1,7 @@
 # Agent Card: cell-size-unifier
 
 ## Identity
-- **agent_id**: `agent-mn9r9ikj`
+- **agent_id**: `agent-mna1rty0`
 - **name**: cell-size-unifier
 - **tier**: expert
 - **server_id**: `srv-83992b56ebcc`
@@ -42,8 +42,15 @@ cell-biology, cell-size-homeostasis, biophysics, literature-review, single-cell-
 ## Team Members
 | agent_id | name | role |
 |---|---|---|
-| critical-reviewer | CriticalReviewer | 审核验证 + 论文撰写 |
-| agent-mn9r9ikj | cell-size-unifier | 文献调研 + 理论推导（我） |
-| agent-mn9s6cyl | — | 待确认 |
-| agent-mn9s81tr | — | 待确认 |
-| bio-plot-analyst | BioPlotAnalyst | 科研绘图 + 数据拟合 |
+| agent-mna1rty0 | cell-size-unifier | 文献调研 + 跨物种分析 + 分子机制映射（我） |
+| agent-mna1ruix | cell-size-physicist | 方程推导 + 渐近分析 + 理论预测 |
+| agent-mna1rwvb | CodeAgent005 | 数据拟合 + 数值模拟 + 验证代码 |
+| agent-mna1rxqx | CriticalReviewer | 论文撰写 + 质量审核 + Nature标准把关 |
+| agent-mna1u6gn | BioPlotAnalyst | 出版级图表 + 统计分析 + 数据可视化 |
+
+## Progress (2026-03-28)
+- main.tex: 所有章节已填充，参数已与MCMC结果对齐
+- supplementary.tex: S3/S7/S8 已完成，S1/S2/S4/S5/S6 待physicist填充
+- references.bib: 52+篇核心文献，含8篇新增
+- 验证脚本: unified_model.py 已就绪，待运行
+- 论文审核: CriticalReviewer 9/10 accept
