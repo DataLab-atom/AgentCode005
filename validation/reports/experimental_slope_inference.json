@@ -1,0 +1,76 @@
+{
+  "method": "Published experimental slopes mapped to Hill coefficient n via unified model",
+  "note": "Slopes are from REAL experimental data (published papers). n is inferred, not fitted to model-generated data.",
+  "lookup_table": {
+    "n_values": [
+      0.01,
+      0.1,
+      0.3,
+      0.5,
+      0.8,
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      20.0,
+      50.0
+    ],
+    "slopes": [
+      1.5647420850042781,
+      1.6718751903507456,
+      1.523829437452733,
+      1.487605919108978,
+      1.3559442338702614,
+      1.2430740500354207,
+      0.911584635681893,
+      0.7195618428401116,
+      0.693179383497895,
+      0.5993255935091915,
+      0.8055496385212764,
+      0.7646729853080035,
+      0.3687983873446564,
+      0.3577823682982458
+    ]
+  },
+  "species_results": {
+    "E_coli (Taheri-Araghi 2015)": {
+      "experimental_slope": 1.04,
+      "inferred_n": 1.31,
+      "regime": "adder",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    },
+    "B_subtilis (Taheri-Araghi 2015)": {
+      "experimental_slope": 1.06,
+      "inferred_n": 1.28,
+      "regime": "adder",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    },
+    "S_pombe (Facchetti 2019)": {
+      "experimental_slope": 0.08,
+      "inferred_n": 806.49,
+      "regime": "sizer",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    },
+    "S_cerevisiae (Di Talia 2007)": {
+      "experimental_slope": 0.6,
+      "inferred_n": 4.99,
+      "regime": "mixed",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    },
+    "HeLa (Cadart 2018)": {
+      "experimental_slope": 0.9,
+      "inferred_n": 2.21,
+      "regime": "weak adder",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    },
+    "RPE1 (Liu 2022)": {
+      "experimental_slope": 0.75,
+      "inferred_n": 8.75,
+      "regime": "mixed",
+      "method": "Slope-to-n mapping via unified model simulation lookup"
+    }
+  }
+}

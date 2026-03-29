@@ -1,0 +1,74 @@
+{
+  "E_coli_glucose": {
+    "n_cells": 500,
+    "mean_Vb": 1.81,
+    "mean_Vd": 3.59,
+    "CV_Vd": 0.1092,
+    "slope_Vd_vs_Vb": 0.898,
+    "growth_rate": 0.023,
+    "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391"
+  },
+  "E_coli_glycerol": {
+    "n_cells": 500,
+    "mean_Vb": 1.21,
+    "mean_Vd": 2.4,
+    "CV_Vd": 0.1181,
+    "slope_Vd_vs_Vb": 0.885,
+    "growth_rate": 0.013,
+    "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391"
+  },
+  "E_coli_Si2019": {
+    "n_cells": 500,
+    "mean_Vb": 1.61,
+    "mean_Vd": 3.2,
+    "CV_Vd": 0.1002,
+    "slope_Vd_vs_Vb": 0.891,
+    "growth_rate": 0.02,
+    "source": "Si et al. (2019) Current Biology 29:1760-1770"
+  },
+  "B_subtilis": {
+    "n_cells": 500,
+    "mean_Vb": 2.01,
+    "mean_Vd": 3.99,
+    "CV_Vd": 0.1003,
+    "slope_Vd_vs_Vb": 0.912,
+    "growth_rate": 0.018,
+    "source": "Taheri-Araghi et al. (2015) Current Biology 25:385-391"
+  },
+  "S_pombe": {
+    "n_cells": 500,
+    "mean_Vb": 80.17,
+    "mean_Vd": 164.63,
+    "CV_Vd": 0.0573,
+    "slope_Vd_vs_Vb": -0.034,
+    "growth_rate": 0.006,
+    "source": "Facchetti et al. (2019) Current Biology 29:350-358"
+  },
+  "S_cerevisiae_daughter": {
+    "n_cells": 500,
+    "mean_Vb": 25.16,
+    "mean_Vd": 47.81,
+    "CV_Vd": 0.1254,
+    "slope_Vd_vs_Vb": 0.437,
+    "growth_rate": 0.008,
+    "source": "Di Talia et al. (2007) Nature 448:947-951; Soifer et al. (2016) Current Biology"
+  },
+  "HeLa": {
+    "n_cells": 500,
+    "mean_Vb": 1813.51,
+    "mean_Vd": 3388.28,
+    "CV_Vd": 0.1438,
+    "slope_Vd_vs_Vb": 0.696,
+    "growth_rate": 0.004,
+    "source": "Cadart et al. (2018) Nature Communications 9:3275"
+  },
+  "RPE1": {
+    "n_cells": 500,
+    "mean_Vb": 2214.4,
+    "mean_Vd": 4186.19,
+    "CV_Vd": 0.1256,
+    "slope_Vd_vs_Vb": 0.594,
+    "growth_rate": 0.003,
+    "source": "Liu et al. (2022) Science 377:eabn5637; Zatulovskiy et al. (2020) Science"
+  }
+}

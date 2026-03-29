@@ -1,0 +1,65 @@
+{
+  "cancer": [
+    {
+      "name": "Rb_loss",
+      "size_ratio": 0.19,
+      "cv_ratio": 0.82,
+      "match": true
+    },
+    {
+      "name": "reduced_cooperativity",
+      "size_ratio": 0.67,
+      "cv_ratio": 1.27,
+      "match": true
+    },
+    {
+      "name": "growth_acceleration",
+      "size_ratio": 0.98,
+      "cv_ratio": 0.79,
+      "match": true
+    },
+    {
+      "name": "combined_perturbation",
+      "size_ratio": 0.16,
+      "cv_ratio": 1.09,
+      "match": true
+    }
+  ],
+  "nutrient_shift": {
+    "overshoot": true,
+    "magnitude": 0.099,
+    "steady_before": 7.36,
+    "steady_after": 7.19
+  },
+  "composite_cycle": {
+    "whole_cycle_adder": false,
+    "slope_whole": 0.6629,
+    "G1_sizer": false,
+    "slope_G1": 0.9876,
+    "SG2M_timer": false,
+    "slope_SG2M": 0.7027,
+    "params_G1": {
+      "n": 30,
+      "K": 2.0,
+      "r": 20
+    },
+    "params_SG2M": {
+      "n": 0.01,
+      "K": 2.0,
+      "r": 5
+    }
+  },
+  "size_dependent_noise": {
+    "theory_formula": "CV(Vd|Vb) ~ (Vb^n + K^n)^{-1/(2n)} / sqrt(r)",
+    "r2_theory_fit": 0.3464,
+    "r2_simple_fit": 0.9476,
+    "fit_K_simple": 4.39,
+    "true_K": 10.0,
+    "true_n": 3.0,
+    "true_r": 5.0,
+    "cv_range": [
+      0.3608,
+      0.5011
+    ]
+  }
+}
